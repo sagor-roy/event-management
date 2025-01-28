@@ -1,0 +1,21 @@
+{
+    "name": "samapti/mvc",
+    "require": {
+        "php": "^8.0",
+        "vlucas/phpdotenv": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "files": [
+            "app/Base/function.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "samapti roy",
+            "email": "bd71.samapti.roy@gmail.com"
+        }
+    ]
+}
