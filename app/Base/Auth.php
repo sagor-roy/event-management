@@ -14,7 +14,7 @@ class Auth
         $password = $credentials['password'];
 
         $userModel = new User;
-        $user = $userModel->where('email', $email)->get()[0] ?? null;
+        $user = $userModel->where('email', '=', $email)->get()[0] ?? null;
 
         if ($user && password_verify($password, $user['password'])) {
             self::login($user);
