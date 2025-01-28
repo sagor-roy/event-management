@@ -2,6 +2,9 @@
 
 namespace App\Base;
 
+use PDO;
+use PDOException;
+
 class Model
 {
     protected static string $tableName;
@@ -9,7 +12,8 @@ class Model
     private $db;
     private $user;
     private $pass;
-    private $getQuery;
+    private $query;
+    private $params = [];
 
     public function __construct()
     {
@@ -17,118 +21,100 @@ class Model
         $this->db = env('DB_NAME');
         $this->user = env('DB_USER');
         $this->pass = env('DB_PASS');
-        $this->getQuery = "SELECT * FROM " . static::$tableName;
+        $this->query = "SELECT * FROM " . static::$tableName;
     }
 
     // Get the table name
-    public static function getTableName()
+    public static function getTableName(): string
     {
         return static::$tableName;
     }
 
     // DB Connection
-    public function connect()
+    public function connect(): PDO
     {
         try {
-            return new \PDO(
+            $pdo = new PDO(
                 "mysql:host={$this->host};dbname={$this->db}",
                 $this->user,
-                $this->pass
+                $this->pass,
+                [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
             );
-        } catch (\Throwable $th) {
-            throw $th;
+            return $pdo;
+        } catch (PDOException $e) {
+            throw new \Exception("Database connection failed: " . $e->getMessage());
         }
     }
 
-    public function where(...$conditions)
+    // Add WHERE clause with parameter binding
+    public function where(string $column, string $operator, mixed $value): static
     {
-        if (count($conditions) === 2) {
-            list($column, $value) = $conditions;
-            $this->getQuery .= " WHERE {$column} = " . $this->connect()->quote($value);
-        } elseif (count($conditions) === 3) {
-            list($column, $operator, $value) = $conditions;
-            $this->getQuery .= " WHERE {$column} {$operator} " . $this->connect()->quote($value);
-        } else {
-            throw new \InvalidArgumentException('Invalid number of parameters for WHERE clause');
-        }
-
+        $this->query .= (stripos($this->query, 'WHERE') !== false ? " AND" : " WHERE") . " `{$column}` {$operator} ?";
+        $this->params[] = $value;
         return $this;
     }
 
-    // Fetch all data from Database
+    // Fetch all data
     public function get(): array|false
     {
-        if (empty($this->getQuery)) {
-            throw new \LogicException('Query is empty. Cannot execute fetch operation.');
-        }
-
-        return $this->fetch($this->getQuery);
+        return $this->fetch($this->query, $this->params);
     }
 
-    // Store data
-    public function create(array $data)
+    // Create new record
+    public function create(array $data): bool
     {
         $columns = implode('`, `', array_keys($data));
-        $values = implode(', ', array_map(fn($val) => $this->connect()->quote($val), array_values($data)));
+        $placeholders = implode(', ', array_fill(0, count($data), '?'));
 
-        $query = "INSERT INTO `{$this->getTableName()}` (`{$columns}`) VALUES ({$values})";
-        $this->execute($query);
+        $query = "INSERT INTO `{$this->getTableName()}` (`{$columns}`) VALUES ({$placeholders})";
+        return $this->execute($query, array_values($data));
     }
 
-    // Get single record by ID
-    public function find(int|string $mixed_string)
+    // Find a single record by ID
+    public function find(int|string $id): array|false
     {
-        preg_match_all('/\d+/', $mixed_string, $matches);
-        $id = implode("", $matches[0]);
-        $query = "SELECT * FROM {$this->getTableName()} WHERE id={$id}";
-        $result = $this->fetch($query);
-
-        return $result;
+        $query = "SELECT * FROM `{$this->getTableName()}` WHERE `id` = ?";
+        return $this->fetch($query, [$id]);
     }
 
-    // Update data
-    public function update($id, $data)
+    // Update a record by ID
+    public function update(int|string $id, array $data): bool
     {
-        $values = implode(', ', array_map(
-            fn($key, $val) => "`{$key}` = " . $this->connect()->quote($val),
-            array_keys($data),
-            array_values($data)
-        ));
+        $setClause = implode(', ', array_map(fn($key) => "`{$key}` = ?", array_keys($data)));
 
-        $query = "UPDATE {$this->getTableName()} SET {$values} WHERE id={$id}";
-        $this->execute($query);
+        $query = "UPDATE `{$this->getTableName()}` SET {$setClause} WHERE `id` = ?";
+        $params = array_merge(array_values($data), [$id]);
+
+        return $this->execute($query, $params);
     }
 
-    // Delete data
-    public function delete(int|string $id): \PDOStatement|false
+    // Delete a record by ID
+    public function delete(int|string $id): bool
     {
-        $query = "DELETE FROM {$this->getTableName()} WHERE id={$id}";
-        return $this->execute($query);
+        $query = "DELETE FROM `{$this->getTableName()}` WHERE `id` = ?";
+        return $this->execute($query, [$id]);
     }
 
-    // Execute query
-    public function execute($query): \PDOStatement|false
+    // Execute a query with parameters
+    public function execute(string $query, array $params = []): bool
     {
-        if (empty($query)) {
-            throw new \InvalidArgumentException('Query cannot be empty.');
+        try {
+            $stmt = $this->connect()->prepare($query);
+            return $stmt->execute($params);
+        } catch (PDOException $e) {
+            throw new \Exception("Query execution failed: " . $e->getMessage());
         }
-
-        $pdo = $this->connect();
-        $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        $stmt = $pdo->prepare($query);
-        $stmt->execute();
-
-        return $stmt;
     }
 
-    // Fetch data
-    public function fetch($query): array|false
+    // Fetch results from a query
+    public function fetch(string $query, array $params = []): array|false
     {
-        if (empty($query)) {
-            throw new \InvalidArgumentException('Query cannot be empty.');
+        try {
+            $stmt = $this->connect()->prepare($query);
+            $stmt->execute($params);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new \Exception("Data fetching failed: " . $e->getMessage());
         }
-
-        $stmt = $this->execute($query);
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }
