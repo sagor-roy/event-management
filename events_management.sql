@@ -69,24 +69,6 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `updated_at`) VALUES
-(5, 'sagor', 'sagor@gmail.com', '$2y$10$oyE3qh.G42bOMMXseCvQsexWkWX18INxLLtvKoPLr8vf5KjFi9RWa', '2025-01-29 09:26:28', '2025-01-29 09:26:28'),
-(6, 'Ezra Nash', 'bipade@mailinator.com', '$2y$10$6kgqluJuVLHIVNSGfzz5vOjW0xZkEhIjggJbz.kGuTEdZwxHd38ci', '2025-01-29 15:28:47', '2025-01-29 15:28:47'),
-(7, 'Madeline Bates', 'vytameryx@mailinator.com', '$2y$10$5G5qURi9PCSHUaI1euVUMugbfUIe.MGeR/ORMOen1SfQYIlWA2A5u', '2025-01-29 15:32:26', '2025-01-29 15:32:26'),
-(8, 'Pascale Walls', 'reqir@mailinator.com', '$2y$10$jYUDHTrpNlewr9nul9isMubx4j01zvKqH9LQwfNZovHUXsvRx1SY6', '2025-01-29 15:34:47', '2025-01-29 15:34:47'),
-(9, 'Quinn Diaz', 'pohytaqem@mailinator.com', '$2y$10$ZvBUlEs21AJZg8Z9kLDmguudcm8M01eBZ2kN14aNJXHEEVp.kN6TO', '2025-01-29 15:39:35', '2025-01-29 15:39:35'),
-(10, 'Kibo Munoz', 'favuwuc@mailinator.com', '$2y$10$TscKFf73wonkDzHcZcEOS.79qiFLGCjMLb42vTVP/8BjZnJaEJ9lK', '2025-01-29 15:40:50', '2025-01-29 15:40:50'),
-(11, 'Iliana Gilliam', 'kehydaza@mailinator.com', '$2y$10$kYaxfU.PMwMNcf1W/i5GeeSueBoAJfmTNEGZ.1VU2ALUUMPqWgOZy', '2025-01-29 15:45:31', '2025-01-29 15:45:31'),
-(12, 'Michael Bell', 'xiqu@mailinator.com', '$2y$10$uA.1P6pXtLaGcP0s/OVMTevQWozVzavSR/Shwn.nUQOnwzZ3am5uS', '2025-01-29 15:45:59', '2025-01-29 15:45:59'),
-(13, 'Lucy Dunn', 'futox@mailinator.com', '$2y$10$FWVtFrkGBwGMH5kOjD5hiufgA79NsjbAV4aYjBihF2w/qhPGwgsbK', '2025-01-29 15:48:58', '2025-01-29 15:48:58'),
-(14, 'Clare Osborn', 'coqitobu@mailinator.com', '$2y$10$UYRvwwPdNq5veLYIdL2DKOOZ.Y7I2gajeodUY09UrGQnohkbJzyqC', '2025-01-29 15:55:35', '2025-01-29 15:55:35'),
-(15, 'Constance Hinton', 'nacoqum@mailinator.com', '$2y$10$268UDDvTXgCPorEFoLVq6uLTQCrb2A.yV.UZ4cKyX7zaIG9wKYxF2', '2025-01-29 15:56:37', '2025-01-29 15:56:37'),
-(16, 'Quentin Oneil', 'sulisiqi@mailinator.com', '$2y$10$uXGdO75Ytht8l3iqNJdLd.Oe2t6utPVuNacABfZkbM3dtnlS71pwG', '2025-01-29 16:04:27', '2025-01-29 16:04:27'),
-(17, 'Finn Thornton', 'jysexiqyfe@mailinator.com', '$2y$10$1alaH8/RmRwmIv.BRxfI4euBbPU/lLbX9zIkerwc4ThZyiZQjM7NS', '2025-01-29 16:21:24', '2025-01-29 16:21:24');
 
 --
 -- Indexes for dumped tables
