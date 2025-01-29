@@ -30,7 +30,7 @@ ob_start();
                         Login
                     </h2>
 
-                    <div id="login-errors" style="color: red;"></div>
+                    <div id="errors"></div>
 
                     <form id="loginForm">
                         <div class="mb-4">
@@ -139,20 +139,20 @@ include(VIEWS_PATH . 'layouts/app.php');
                 },
                 error: function(error) {
 
-                    $('#login-errors').html('');
-                    let errorList = $('<ul></ul>');
+                    $('#errors').html('');
+                    let errorList = $('<ul class="error-list"></ul>');
 
                     if (error.status == 400) {
                         let errorsData = error.responseJSON.data;
                         $.each(errorsData, function(field, messages) {
                             $.each(messages, function(index, message) {
-                                errorList.append('<li>' + message + '</li>');
+                                errorList.append('<li class="error-item">' + message + '</li>');
                             });
                         });
-                        $('#login-errors').append(errorList);
+                        $('#errors').append(errorList);
                     } else {
-                        errorList.append('<li>' + error.responseJSON.message + '</li>');
-                        $('#login-errors').append(errorList);
+                        errorList.append('<li class="error-item">' + error.responseJSON.message + '</li>');
+                        $('#errors').append(errorList);
                     }
                 },
                 complete: function() {

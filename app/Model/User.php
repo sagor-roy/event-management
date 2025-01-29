@@ -39,4 +39,20 @@ class User extends Database
             throw new \Exception("Data fetching failed: " . $e->getMessage());
         }
     }
+
+    public function create(array $data): bool
+    {
+        try {
+            $query = "INSERT INTO $this->table_name (name, email, password) VALUES (:name, :email, :password)";
+            $stmt = $this->connect()->prepare($query);
+
+            $stmt->bindParam(':name', $data['name']);
+            $stmt->bindParam(':email', $data['email']);
+            $stmt->bindParam(':password', $data['password']);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            throw new \Exception("User creation failed: " . $e->getMessage());
+        }
+    }
 }

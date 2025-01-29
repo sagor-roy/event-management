@@ -12,9 +12,25 @@ $hideLayout = in_array($route, $hideLayoutRoutes);
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><?php echo $title ?? 'My Application'; ?></title>
+    <title><?php echo $title ?? 'Event Management'; ?></title>
     <link rel="icon" href="favicon.ico" />
     <link href="<?= asset('src/style.css') ?>" rel="stylesheet" />
+    <style>
+        .error-list {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 16px;
+            list-style-type: none;
+        }
+
+        .error-item {
+            font-size: 14px;
+            padding: 4px 0;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 
 <body

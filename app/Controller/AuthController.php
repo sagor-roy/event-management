@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Base\Auth;
-use App\Base\Redirect;
-use App\Base\Session;
 use App\Base\Validator;
 use App\Model\User;
 
@@ -58,6 +56,68 @@ class AuthController extends Controller
             return json_encode([
                 'status' => 'error',
                 'message' => "Invalid email or password.",
+                'data' => []
+            ]);
+        }
+    }
+
+    public function store(): string
+    {
+        $data = [
+            'name' => isset($_POST['name']) ? trim($_POST['name']) : '',
+            'email' => isset($_POST['email']) ? htmlspecialchars(trim($_POST['email'])) : '',
+            'password' => isset($_POST['password']) ? trim($_POST['password']) : '',
+            'password_confirmation' => isset($_POST['password_confirmation']) ? trim($_POST['password_confirmation']) : '',
+        ];
+
+        $validator = new Validator($data, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:6|confirmed'
+        ]);
+
+        if ($validator->fails()) {
+            http_response_code(400);
+            return json_encode([
+                'status' => 'error',
+                'message' => "Validation Failed",
+                'data' => $validator->errors()
+            ]);
+        }
+
+        $userModel = new User;
+        $existingUser = $userModel->getFirst('email', '=', $data['email']);
+
+        if ($existingUser) {
+            http_response_code(409);
+            return json_encode([
+                'status' => 'error',
+                'message' => "This email is already registered.",
+                'data' => []
+            ]);
+        }
+
+        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        unset($data['password_confirmation']);
+
+        $newUser = $userModel->create($data);
+
+        if ($newUser) {
+            $user = $userModel->getFirst('email', '=', $data['email']);
+            unset($user['password']);
+            Auth::login($user);
+
+            http_response_code(200);
+            return json_encode([
+                'status' => 'success',
+                'message' => "Successfully Registered",
+                'data' => $user
+            ]);
+        } else {
+            http_response_code(500);
+            return json_encode([
+                'status' => 'error',
+                'message' => "User creation failed.",
                 'data' => []
             ]);
         }

@@ -35,12 +35,15 @@ ob_start();
                         Register
                     </h2>
 
-                    <form>
+                    <div id="errors"></div>
+
+                    <form id="registerForm">
                         <div class="mb-4">
                             <label
                                 class="mb-2.5 block font-medium text-black dark:text-white">Name</label>
                             <div class="relative">
                                 <input
+                                    name="name"
                                     type="text"
                                     placeholder="Enter your full name"
                                     class="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
@@ -71,6 +74,7 @@ ob_start();
                                 class="mb-2.5 block font-medium text-black dark:text-white">Email</label>
                             <div class="relative">
                                 <input
+                                    name="email"
                                     type="email"
                                     placeholder="Enter your email"
                                     class="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
@@ -98,6 +102,7 @@ ob_start();
                                 class="mb-2.5 block font-medium text-black dark:text-white">Password</label>
                             <div class="relative">
                                 <input
+                                    name="password"
                                     type="password"
                                     placeholder="Enter your password"
                                     class="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
@@ -128,6 +133,7 @@ ob_start();
                                 class="mb-2.5 block font-medium text-black dark:text-white">Re-type Password</label>
                             <div class="relative">
                                 <input
+                                    name="password_confirmation"
                                     type="password"
                                     placeholder="Re-enter your password"
                                     class="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
@@ -154,10 +160,10 @@ ob_start();
                         </div>
 
                         <div class="mb-5">
-                            <input
+                            <button
+                                id="submit-button"
                                 type="submit"
-                                value="Create account"
-                                class="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 font-medium text-white transition hover:bg-opacity-90" />
+                                class="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 font-medium text-white transition hover:bg-opacity-90">Create account</button>
                         </div>
 
 
@@ -180,3 +186,51 @@ ob_start();
 $content = ob_get_clean();
 include(VIEWS_PATH . 'layouts/app.php');
 ?>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $("#registerForm").submit(function(e) {
+            e.preventDefault();
+
+            var submitButton = $("#submit-button");
+            submitButton.prop('disabled', true);
+            submitButton.text("Loading...");
+
+            $.ajax({
+                url: "<?= url('register') ?>",
+                type: "POST",
+                data: $(this).serialize(),
+                dataType: "json",
+                success: function(response) {
+                    window.location.href = "<?= url('') ?>";
+                },
+                error: function(error) {
+
+                    $('#errors').html('');
+                    let errorList = $('<ul class="error-list"></ul>');
+
+                    if (error.status == 400) {
+                        let errorsData = error.responseJSON.data;
+                        $.each(errorsData, function(field, messages) {
+                            $.each(messages, function(index, message) {
+                                errorList.append('<li class="error-item">' + message + '</li>');
+                            });
+                        });
+                        $('#errors').append(errorList);
+                    } else {
+                        errorList.append('<li class="error-item">' + error.responseJSON.message + '</li>');
+                        $('#errors').append(errorList);
+                    }
+                },
+                complete: function() {
+                    submitButton.prop('disabled', false);
+                    submitButton.text("Create account");
+                }
+            });
+        });
+    });
+</script>

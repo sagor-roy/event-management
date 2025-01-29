@@ -12,8 +12,9 @@ class Validator
         'email' => 'The :attribute must be a valid email address.',
         'min' => 'The :attribute must be at least :min characters.',
         'max' => 'The :attribute must not exceed :max characters.',
+        'confirmed' => 'The :attribute confirmation does not match.',
     ];
-    
+
 
     public function __construct(array $data, array $rules)
     {
@@ -79,5 +80,11 @@ class Validator
     protected function validateMax($value, $max)
     {
         return strlen($value) <= (int)$max;
+    }
+
+    protected function validateConfirmed($value, $param = null)
+    {
+        $confirmationField = 'password_confirmation';
+        return isset($this->data[$confirmationField]) && $value === $this->data[$confirmationField];
     }
 }
