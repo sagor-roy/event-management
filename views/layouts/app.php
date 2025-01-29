@@ -15,6 +15,8 @@ $hideLayout = in_array($route, $hideLayoutRoutes);
     <title><?php echo $title ?? 'Event Management'; ?></title>
     <link rel="icon" href="favicon.ico" />
     <link href="<?= asset('src/style.css') ?>" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.0.5/swiper-bundle.min.css" />
+
     <style>
         .error-list {
             background-color: #f8d7da;
@@ -97,6 +99,7 @@ $hideLayout = in_array($route, $hideLayoutRoutes);
         </main>
     <?php endif; ?>
     <script defer src="<?= asset('src/bundle.js') ?>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.all.min.js"></script>
 </body>
 
 </html>

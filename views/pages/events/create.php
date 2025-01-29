@@ -198,6 +198,14 @@ include(VIEWS_PATH . 'layouts/app.php');
                 dataType: "json",
                 success: function(response) {
                    console.log(response);
+
+                   Swal.fire({
+                    title: "Success",
+                    text: response.message,
+                    icon: "success",
+                    confirmButtonText: "Close",
+                });
+
                    $('#errors').html('');
                    $("#submitForm")[0].reset();
                 },

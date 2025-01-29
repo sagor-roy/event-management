@@ -62,7 +62,7 @@ class EventController extends Controller
             http_response_code(200);
             return json_encode([
                 'status' => 'success',
-                'message' => "Event Create Success!",
+                'message' => "Event Create Successfully!",
                 'data' => []
             ]);
         } else {
