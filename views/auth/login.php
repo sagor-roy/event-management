@@ -68,7 +68,7 @@ ob_start();
                                 <input
                                     name="password"
                                     type="password"
-                                    placeholder="6+ Characters, 1 Capital letter"
+                                    placeholder="6+ Characters"
                                     class="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
 
                                 <span class="absolute right-4 top-4">
