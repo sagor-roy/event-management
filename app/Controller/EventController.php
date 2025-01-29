@@ -15,4 +15,9 @@ class EventController extends Controller
         return view('pages/events/create');
     }
 
+    public function list()
+    {
+        return view('pages/events/list');
+    }
+
 }

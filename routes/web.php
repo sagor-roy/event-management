@@ -14,3 +14,4 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/logout', [HomeController::class, 'logout']);
 
 Route::get('/event/create', [EventController::class, 'index']);
+Route::get('/event/list', [EventController::class, 'list']);
