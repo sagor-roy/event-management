@@ -45,10 +45,12 @@ CREATE TABLE `attendees` (
 CREATE TABLE `events` (
   `id` int NOT NULL,
   `name` varchar(255) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
   `description` text,
   `date` datetime DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
   `max_capacity` int DEFAULT NULL,
+  `status` ENUM('1','0') NOT NULL DEFAULT '1',
   `created_by` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
