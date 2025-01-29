@@ -46,7 +46,7 @@ ob_start();
                                 <div class="w-full xl:w-1/2">
                                     <label
                                         class="mb-3 block text-sm font-medium text-black dark:text-white">
-                                        Event Name
+                                        Event Name <sup style="color: red;">*</sup>
                                     </label>
                                     <input
                                         name="name"
@@ -58,7 +58,7 @@ ob_start();
                                 <div class="w-full xl:w-1/2">
                                     <label
                                         class="mb-3 block text-sm font-medium text-black dark:text-white">
-                                        Event Date
+                                        Event Date <sup style="color: red;">*</sup>
                                     </label>
                                     <div class="relative">
                                         <input
@@ -88,7 +88,7 @@ ob_start();
                                 <div class="w-full xl:w-1/2">
                                     <label
                                         class="mb-3 block text-sm font-medium text-black dark:text-white">
-                                        Event Location
+                                        Event Location <sup style="color: red;">*</sup>
                                     </label>
                                     <input
                                         name="location"
@@ -100,7 +100,7 @@ ob_start();
                                 <div class="w-full xl:w-1/2">
                                     <label
                                         class="mb-3 block text-sm font-medium text-black dark:text-white">
-                                        Event Capacity
+                                        Event Capacity <sup style="color: red;">*</sup>
                                     </label>
                                     <input
                                         name="max_capacity"
@@ -113,7 +113,7 @@ ob_start();
                             <div class="w-full mb-4.5">
                                 <label
                                     class="mb-3 block text-sm font-medium text-black dark:text-white">
-                                    Select Option
+                                    Select Option <sup style="color: red;">*</sup>
                                 </label>
                                 <div
                                     x-data="{ isOptionSelected: false }"
@@ -149,7 +149,7 @@ ob_start();
                             <div class="mb-6">
                                 <label
                                     class="mb-3 block text-sm font-medium text-black dark:text-white">
-                                    Description
+                                    Description <sup style="color: red;">*</sup>
                                 </label>
                                 <textarea
                                     name="description"
@@ -197,17 +197,15 @@ include(VIEWS_PATH . 'layouts/app.php');
                 data: $(this).serialize(),
                 dataType: "json",
                 success: function(response) {
-                   console.log(response);
+                    Swal.fire({
+                        title: "Success",
+                        text: response.message,
+                        icon: "success",
+                        confirmButtonText: "Close",
+                    });
 
-                   Swal.fire({
-                    title: "Success",
-                    text: response.message,
-                    icon: "success",
-                    confirmButtonText: "Close",
-                });
-
-                   $('#errors').html('');
-                   $("#submitForm")[0].reset();
+                    $('#errors').html('');
+                    $("#submitForm")[0].reset();
                 },
                 error: function(error) {
 
@@ -216,6 +214,14 @@ include(VIEWS_PATH . 'layouts/app.php');
 
                     if (error.status == 400) {
                         let errorsData = error.responseJSON.data;
+
+                        Swal.fire({
+                            title: "Opps!!",
+                            text: error.responseJSON.message,
+                            icon: "error",
+                            confirmButtonText: "Close",
+                        });
+
                         $.each(errorsData, function(field, messages) {
                             $.each(messages, function(index, message) {
                                 errorList.append('<li class="error-item">' + message + '</li>');
