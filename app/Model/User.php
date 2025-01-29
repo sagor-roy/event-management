@@ -55,4 +55,32 @@ class User extends Database
             throw new \Exception("User creation failed: " . $e->getMessage());
         }
     }
+
+    public function paginate(int $perPage = 10, int $page = 1): array
+    {
+        try {
+            $offset = ($page - 1) * $perPage;
+            $query = "SELECT * FROM $this->table_name LIMIT :perPage OFFSET :offset";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
+            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new \Exception("Pagination failed: " . $e->getMessage());
+        }
+    }
+
+    public function count(): int
+    {
+        try {
+            $query = "SELECT COUNT(*) as total FROM $this->table_name";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result['total'] ?? 0;
+        } catch (PDOException $e) {
+            throw new \Exception("Counting users failed: " . $e->getMessage());
+        }
+    }
 }

@@ -49,14 +49,15 @@ function renderPaginationLinks(int $currentPage, int $totalPages, int $perPage):
 }
 
 
-function renderPerPageDropdown(int $currentPerPage): string
+function renderPerPageDropdown(): string
 {
+    $limit = isset($_GET['limit']) ? $_GET['limit'] : 5;
     $options = [5, 10, 25, 50, 100];
-    $html = '<form method="GET" action="">';
-    $html .= '<select name="limit" onchange="this.form.submit()">';
+    $html = '<form method="GET" action="" style="margin:30px">';
+    $html .= '<select style="padding: 10px" name="limit" onchange="this.form.submit()">';
 
     foreach ($options as $option) {
-        $selected = ($option == $currentPerPage) ? 'selected' : '';
+        $selected = ($option == $limit) ? 'selected' : '';
         $html .= "<option value='$option' $selected>$option per page</option>";
     }
 

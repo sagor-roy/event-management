@@ -11,6 +11,7 @@ Route::get('/register', [AuthController::class, 'register']);
 Route::post('/register', [AuthController::class, 'store']);
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/user/list', [HomeController::class, 'userList']);
 Route::get('/logout', [HomeController::class, 'logout']);
 
 Route::get('/event/create', [EventController::class, 'index']);

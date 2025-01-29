@@ -891,8 +891,8 @@ ob_start();
                     </div>
 
                     <div class="flex justify-between items-center">
-                    <?=renderPerPageDropdown(1)?>
-                    <?=renderPaginationLinks(1,10, 10)?>
+                        <?= renderPerPageDropdown(1) ?>
+                        <?= renderPaginationLinks(1, 10, 10) ?>
                     </div>
                 </div>
             </div>
