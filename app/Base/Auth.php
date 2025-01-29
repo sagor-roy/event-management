@@ -25,14 +25,15 @@ class Auth
     }
 
     // Login function
-    public static function login($user)
+
+    public static function login($user) : void
     {
         $_SESSION['user'] = $user;
         self::$user = $user;
     }
 
     // Logout function
-    public static function logout()
+    public static function logout(): void
     {
         unset($_SESSION['user']);
         self::$user = null;
@@ -45,7 +46,7 @@ class Auth
     }
 
     // Get the authenticated user
-    public static function user()
+    public static function user() : mixed
     {
         if (!self::$user && isset($_SESSION['user'])) {
             self::$user = $_SESSION['user'];

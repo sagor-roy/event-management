@@ -6,12 +6,17 @@ function view(string $view, array $data = []): void
     require_once(VIEWS_PATH . $view . '.php');
 }
 
-function env($key)
+function env($key): mixed
 {
     return $_ENV[$key];
 }
 
-// function asset($path)
-// {
-//     return BASEURL . '/assets/' . $path;
-// }
+function asset($path) : string
+{
+    return BASE_URL . '/assets/' . ltrim($path, '/');
+}
+
+function url($path): string
+{
+    return BASE_URL . '/'. $path;
+}

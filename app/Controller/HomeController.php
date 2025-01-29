@@ -8,14 +8,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('index');
+        return view('pages/dashboard');
     }
 
-    public function about()
-    {
-    }
-
-    public function view($id)
-    {
-    }
 }

@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 // Define paths
 define('BASE_PATH', __DIR__ . '/../');
 define('VIEWS_PATH', BASE_PATH . 'views/');
+define('BASE_URL', $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST']);
 
 // Composer autoload
 require BASE_PATH . 'vendor/autoload.php';
