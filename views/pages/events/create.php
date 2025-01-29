@@ -33,11 +33,14 @@ ob_start();
                     class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                     <div
                         class="border-b border-stroke px-6.5 flex justify-end py-4 dark:border-strokedark">
-                        <a href="<?=url('event/list')?>" class="inline-flex items-center justify-center rounded-md bg-primary py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-6">
+                        <a href="<?= url('event/list') ?>" class="inline-flex items-center justify-center rounded-md bg-primary py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-6">
                             Event List
                         </a>
                     </div>
-                    <form action="#">
+
+                    <div id="errors" style="margin:20px;"></div>
+
+                    <form id="submitForm">
                         <div class="p-6.5">
                             <div class="mb-4.5 flex flex-col gap-6 xl:flex-row">
                                 <div class="w-full xl:w-1/2">
@@ -46,8 +49,9 @@ ob_start();
                                         Event Name
                                     </label>
                                     <input
+                                        name="name"
                                         type="text"
-                                        placeholder="Enter your first name"
+                                        placeholder="Event Name"
                                         class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
                                 </div>
 
@@ -58,6 +62,7 @@ ob_start();
                                     </label>
                                     <div class="relative">
                                         <input
+                                            name="date"
                                             class="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                                             placeholder="mm/dd/yyyy"
                                             data-class="flatpickr-right" />
@@ -86,8 +91,9 @@ ob_start();
                                         Event Location
                                     </label>
                                     <input
+                                        name="location"
                                         type="text"
-                                        placeholder="Enter your first name"
+                                        placeholder="Location"
                                         class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
                                 </div>
 
@@ -97,8 +103,9 @@ ob_start();
                                         Event Capacity
                                     </label>
                                     <input
-                                        type="text"
-                                        placeholder="Enter your last name"
+                                        name="max_capacity"
+                                        type="number" min="1"
+                                        placeholder="Capacity"
                                         class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
                                 </div>
                             </div>
@@ -112,11 +119,12 @@ ob_start();
                                     x-data="{ isOptionSelected: false }"
                                     class="relative z-20 bg-white dark:bg-form-input">
                                     <select
+                                        name="status"
                                         class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 pl-5 pr-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
                                         :class="isOptionSelected && 'text-black dark:text-white'"
                                         @change="isOptionSelected = true">
                                         <option value="1" class="text-body">Active</option>
-                                        <option value="0" class="text-body">Inactive 2</option>
+                                        <option value="0" class="text-body">Inactive</option>
                                     </select>
                                     <span
                                         class="absolute right-4 top-1/2 z-10 -translate-y-1/2">
@@ -141,15 +149,17 @@ ob_start();
                             <div class="mb-6">
                                 <label
                                     class="mb-3 block text-sm font-medium text-black dark:text-white">
-                                    Message
+                                    Description
                                 </label>
                                 <textarea
+                                    name="description"
                                     rows="6"
-                                    placeholder="Type your message"
+                                    placeholder="Event Details"
                                     class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"></textarea>
                             </div>
 
                             <button
+                                type="submit" id="submit-button"
                                 class="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
                                 Create Event
                             </button>
@@ -168,3 +178,52 @@ $content = ob_get_clean();
 
 include(VIEWS_PATH . 'layouts/app.php');
 ?>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $("#submitForm").submit(function(e) {
+            e.preventDefault();
+
+            var submitButton = $("#submit-button");
+            submitButton.prop('disabled', true);
+            submitButton.text("Loading...");
+
+            $.ajax({
+                url: "<?= url('event/store') ?>",
+                type: "POST",
+                data: $(this).serialize(),
+                dataType: "json",
+                success: function(response) {
+                   console.log(response);
+                   $('#errors').html('');
+                   $("#submitForm")[0].reset();
+                },
+                error: function(error) {
+
+                    $('#errors').html('');
+                    let errorList = $('<ul class="error-list"></ul>');
+
+                    if (error.status == 400) {
+                        let errorsData = error.responseJSON.data;
+                        $.each(errorsData, function(field, messages) {
+                            $.each(messages, function(index, message) {
+                                errorList.append('<li class="error-item">' + message + '</li>');
+                            });
+                        });
+                        $('#errors').append(errorList);
+                    } else {
+                        errorList.append('<li class="error-item">' + error.responseJSON.message + '</li>');
+                        $('#errors').append(errorList);
+                    }
+                },
+                complete: function() {
+                    submitButton.prop('disabled', false);
+                    submitButton.text("Create Event");
+                }
+            });
+        });
+    });
+</script>

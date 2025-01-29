@@ -28,18 +28,15 @@ function renderPaginationLinks(int $currentPage, int $totalPages, int $perPage):
     $html = '<ul class="pagination">';
     $limitParam = "&limit=$perPage";
 
-    // Previous Button
     if ($currentPage > 1) {
         $html .= '<li><a href="?page=' . ($currentPage - 1) . $limitParam . '">&laquo; Prev</a></li>';
     }
 
-    // Page Numbers
     for ($i = 1; $i <= $totalPages; $i++) {
         $activeClass = ($i == $currentPage) ? 'class="active"' : '';
         $html .= '<li ' . $activeClass . '><a href="?page=' . $i . $limitParam . '">' . $i . '</a></li>';
     }
 
-    // Next Button
     if ($currentPage < $totalPages) {
         $html .= '<li><a href="?page=' . ($currentPage + 1) . $limitParam . '">Next &raquo;</a></li>';
     }
@@ -65,3 +62,12 @@ function renderPerPageDropdown(): string
     $html .= '</form>';
     return $html;
 }
+
+
+function generateSlug(string $string): string
+{
+    $slug = strtolower(trim($string));
+    $slug = preg_replace('/[^a-z0-9]+/', '-', $slug);
+    return trim($slug, '-');
+}
+
