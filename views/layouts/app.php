@@ -30,6 +30,35 @@ $hideLayout = in_array($route, $hideLayoutRoutes);
             padding: 4px 0;
             line-height: 1.6;
         }
+
+        .pagination {
+            list-style: none;
+            padding: 25px;
+            text-align: right;
+        }
+
+        .pagination li {
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        .pagination a {
+            text-decoration: none;
+            padding: 8px 12px;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .pagination li.active a {
+            background: #0056b3;
+            font-weight: bold;
+        }
+
+        select {
+            padding: 5px;
+            font-size: 16px;
+        }
     </style>
 </head>
 

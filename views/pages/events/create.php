@@ -11,7 +11,7 @@ ob_start();
         <div
             class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <h2 class="text-title-md2 font-bold text-black dark:text-white">
-                Event
+                Event Create
             </h2>
 
             <nav>
@@ -33,7 +33,7 @@ ob_start();
                     class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                     <div
                         class="border-b border-stroke px-6.5 flex justify-end py-4 dark:border-strokedark">
-                        <a href="#" class="inline-flex items-center justify-center rounded-md bg-primary py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-6">
+                        <a href="<?=url('event/list')?>" class="inline-flex items-center justify-center rounded-md bg-primary py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-6">
                             Event List
                         </a>
                     </div>
