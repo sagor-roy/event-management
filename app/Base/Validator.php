@@ -7,6 +7,13 @@ class Validator
     protected $errors;
     protected $rules;
     protected $data;
+    protected $messages = [
+        'required' => 'The :attribute field is required.',
+        'email' => 'The :attribute must be a valid email address.',
+        'min' => 'The :attribute must be at least :min characters.',
+        'max' => 'The :attribute must not exceed :max characters.',
+    ];
+    
 
     public function __construct(array $data, array $rules)
     {
@@ -17,17 +24,26 @@ class Validator
 
     public function validate()
     {
-        // Define the error messages for each validation rule
-        $messages = [
-            'required' => 'The :attribute field is required.',
-            'email' => 'The :attribute field must be a valid email address.'
-        ];
+        foreach ($this->rules as $attribute => $ruleString) {
+            $rules = explode('|', $ruleString);
 
-        foreach ($this->data as $attribute => $value) {
-            foreach ($this->rules[$attribute] as $rule) {
-                $methodName = 'validate' . ucfirst($rule);
-                if (!$this->$methodName($value)) {
-                    $errorMessage = str_replace(':attribute', $attribute, $messages[$rule]);
+            foreach ($rules as $rule) {
+                $params = explode(':', $rule);
+                $ruleName = $params[0];
+
+                $methodName = 'validate' . ucfirst($ruleName);
+                if (!method_exists($this, $methodName)) {
+                    continue;
+                }
+
+                $param = $params[1] ?? null;
+
+                if (!$this->$methodName($this->data[$attribute] ?? null, $param)) {
+                    $errorMessage = str_replace(
+                        [':attribute', ":$ruleName"],
+                        [$attribute, $param],
+                        $this->messages[$ruleName] ?? 'The :attribute is invalid.'
+                    );
                     $this->errors[$attribute][] = $errorMessage;
                 }
             }
@@ -35,27 +51,33 @@ class Validator
         return empty($this->errors);
     }
 
-    public function getErrors()
+    public function fails()
+    {
+        return !$this->validate();
+    }
+
+    public function errors()
     {
         return $this->errors;
     }
 
-    public static function validateRequired($value)
+    protected function validateRequired($value)
     {
         return !empty($value);
     }
 
-    public static function validateEmail($value)
+    protected function validateEmail($value)
     {
         return filter_var($value, FILTER_VALIDATE_EMAIL) !== false;
     }
 
-    public function fails()
+    protected function validateMin($value, $min)
     {
-        if (!$this->validate()) {
-            $errors = $this->getErrors();
-            Session::set('errors', $errors);
-            return true;
-        }
+        return strlen($value) >= (int)$min;
+    }
+
+    protected function validateMax($value, $max)
+    {
+        return strlen($value) <= (int)$max;
     }
 }

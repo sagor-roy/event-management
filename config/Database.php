@@ -8,7 +8,7 @@ use PDOException;
 class Database
 {
     private $host = "localhost";
-    private $db_name = "jewellery";
+    private $db_name = "events_management";
     private $username = "root";
     private $password = "plzletme!n";
 
@@ -26,4 +26,5 @@ class Database
             throw new \Exception("Database connection failed: " . $e->getMessage());
         }
     }
+    
 }

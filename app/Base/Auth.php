@@ -14,9 +14,10 @@ class Auth
         $password = $credentials['password'];
 
         $userModel = new User;
-        $user = $userModel->where('email', '=', $email)->get()[0] ?? null;
+        $user = $userModel->getFirst('email', '=', $email) ?? null;
 
         if ($user && password_verify($password, $user['password'])) {
+            unset($user['password']);
             self::login($user);
             return true;
         }
@@ -26,7 +27,7 @@ class Auth
 
     // Login function
 
-    public static function login($user) : void
+    public static function login($user): void
     {
         $_SESSION['user'] = $user;
         self::$user = $user;
@@ -46,7 +47,7 @@ class Auth
     }
 
     // Get the authenticated user
-    public static function user() : mixed
+    public static function user(): mixed
     {
         if (!self::$user && isset($_SESSION['user'])) {
             self::$user = $_SESSION['user'];

@@ -1,9 +1,7 @@
 <?php
 $title = 'Login';
-
 ob_start();
 ?>
-
 
 <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
 
@@ -13,16 +11,13 @@ ob_start();
         <div class="flex flex-wrap items-center">
             <div class="hidden w-full xl:block xl:w-1/2">
                 <div class="px-26 py-17.5 text-center">
-                    
-
                     <p class="font-medium 2xl:px-20">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit
                         suspendisse.
                     </p>
-
                     <span class="mt-15 inline-block">
                         <img
-                            src="<?=asset('/')?>src/images/illustration/illustration-03.svg"
+                            src="<?= asset('/') ?>src/images/illustration/illustration-03.svg"
                             alt="illustration" />
                     </span>
                 </div>
@@ -35,12 +30,15 @@ ob_start();
                         Login
                     </h2>
 
-                    <form>
+                    <div id="login-errors" style="color: red;"></div>
+
+                    <form id="loginForm">
                         <div class="mb-4">
                             <label
                                 class="mb-2.5 block font-medium text-black dark:text-white">Email</label>
                             <div class="relative">
                                 <input
+                                    name="email"
                                     type="email"
                                     placeholder="Enter your email"
                                     class="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
@@ -68,6 +66,7 @@ ob_start();
                                 class="mb-2.5 block font-medium text-black dark:text-white">Password</label>
                             <div class="relative">
                                 <input
+                                    name="password"
                                     type="password"
                                     placeholder="6+ Characters, 1 Capital letter"
                                     class="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
@@ -94,17 +93,16 @@ ob_start();
                         </div>
 
                         <div class="mb-5">
-                            <input
+                            <button id="submit-button"
                                 type="submit"
-                                value="Login"
-                                class="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 font-medium text-white transition hover:bg-opacity-90" />
+                                class="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 font-medium text-white transition hover:bg-opacity-90" >Login</button>
                         </div>
 
 
                         <div class="mt-6 text-center">
                             <p class="font-medium">
                                 Don’t have any account?
-                                <a href="<?=url('register')?>" class="text-primary">Register</a>
+                                <a href="<?= url('register') ?>" class="text-primary">Register</a>
                             </p>
                         </div>
                     </form>
@@ -115,8 +113,53 @@ ob_start();
     <!-- ====== Forms Section End -->
 </div>
 
-
 <?php
 $content = ob_get_clean();
 include(VIEWS_PATH . 'layouts/app.php');
 ?>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $("#loginForm").submit(function(e) {
+            e.preventDefault();
+
+            var submitButton = $("#submit-button");
+            submitButton.prop('disabled', true);
+            submitButton.text("Loading...");
+
+            $.ajax({
+                url: "<?= url('login') ?>",
+                type: "POST",
+                data: $(this).serialize(),
+                dataType: "json",
+                success: function(response) {
+                    window.location.href = "<?= url('') ?>";
+                },
+                error: function(error) {
+
+                    $('#login-errors').html('');
+                    let errorList = $('<ul></ul>');
+
+                    if (error.status == 400) {
+                        let errorsData = error.responseJSON.data;
+                        $.each(errorsData, function(field, messages) {
+                            $.each(messages, function(index, message) {
+                                errorList.append('<li>' + message + '</li>');
+                            });
+                        });
+                        $('#login-errors').append(errorList);
+                    } else {
+                        errorList.append('<li>' + error.responseJSON.message + '</li>');
+                        $('#login-errors').append(errorList);
+                    }
+                },
+                complete: function() {
+                    submitButton.prop('disabled', false);
+                    submitButton.text("Login");
+                }
+            });
+        });
+    });
+</script>

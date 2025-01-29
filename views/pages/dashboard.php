@@ -1,7 +1,11 @@
 <?php
+
+use App\Base\Auth;
+
 $title = 'Dashboard | My Application';
 
 ob_start();
+
 ?>
 
 
@@ -34,7 +38,7 @@ ob_start();
                     class="text-title-md font-bold text-black dark:text-white">
                     $3.456K
                 </h4>
-                <span class="text-sm font-medium">Total views</span>
+                <span class="text-sm font-medium">Total</span>
             </div>
 
             <span
