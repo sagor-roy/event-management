@@ -4,8 +4,6 @@
 
 The Event Management System is a web-based application that allows users to create, manage, and view events, register attendees, and generate event reports. The project is developed using pure PHP (without frameworks) and MySQL.This project follows the Laravel MVC design pattern flow (Laravel Clone) and has great potential for further feature development.
 
-# Event Management System
-
 ## Features
 
 ### 1. User Authentication
