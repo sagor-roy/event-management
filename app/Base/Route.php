@@ -18,6 +18,11 @@ class Route
         self::$routes['POST'][$uri] = $callback;
     }
 
+    public static function put(string $uri, $callback): void
+    {
+        self::$routes['PUT'][$uri] = $callback;
+    }
+
     // Handle the incoming request
     public static function handleRequest(): void
     {

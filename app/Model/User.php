@@ -60,7 +60,7 @@ class User extends Database
     {
         try {
             $offset = ($page - 1) * $perPage;
-            $query = "SELECT * FROM $this->table_name LIMIT :perPage OFFSET :offset";
+            $query = "SELECT id,name,email FROM $this->table_name LIMIT :perPage OFFSET :offset";
             $stmt = $this->connect()->prepare($query);
             $stmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
             $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);

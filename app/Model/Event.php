@@ -68,7 +68,21 @@ class Event extends Database
     {
         try {
             $offset = ($page - 1) * $perPage;
-            $query = "SELECT * FROM $this->table_name LIMIT :perPage OFFSET :offset";
+            $query = "SELECT 
+                        e.id, e.name, e.slug, e.description, e.date, e.location, 
+                        e.max_capacity, e.status, e.created_by, u.name AS created_by_name, 
+                        e.created_at, e.updated_at,
+                        (e.max_capacity - COALESCE(a.attendee_count, 0)) AS remaining_tickets
+                      FROM $this->table_name e
+                      LEFT JOIN (
+                          SELECT event_id, COUNT(*) AS attendee_count 
+                          FROM attendees 
+                          GROUP BY event_id
+                      ) a ON e.id = a.event_id
+                      LEFT JOIN users u ON e.created_by = u.id
+                      ORDER BY e.date DESC
+                      LIMIT :perPage OFFSET :offset";
+
             $stmt = $this->connect()->prepare($query);
             $stmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
             $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);

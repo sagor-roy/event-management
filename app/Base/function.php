@@ -50,7 +50,7 @@ function renderPerPageDropdown(): string
 {
     $limit = isset($_GET['limit']) ? $_GET['limit'] : 5;
     $options = [5, 10, 25, 50, 100];
-    $html = '<form method="GET" action="" style="margin:30px">';
+    $html = '<form method="GET" action="" style="margin:20px">';
     $html .= '<select style="padding: 10px" name="limit" onchange="this.form.submit()">';
 
     foreach ($options as $option) {

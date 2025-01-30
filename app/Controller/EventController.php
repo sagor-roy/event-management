@@ -15,12 +15,40 @@ class EventController extends Controller
 
     public function index()
     {
+
         return view('pages/events/create');
     }
 
     public function list()
     {
-        return view('pages/events/list');
+        $defaultPerPage = 5;
+
+        $perPage = isset($_GET['limit']) ? (int)$_GET['limit'] : $defaultPerPage;
+        $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+
+        $eventModel = new Event;
+        $events = $eventModel->paginate($perPage, $page);
+        $totalUsers = $eventModel->count();
+        $totalPages = ceil($totalUsers / $perPage);
+
+        $data = [
+            'status' => 'success',
+            'data' => [
+                'events' => $events,
+                'pagination' => [
+                    'current_page' => $page,
+                    'total_pages' => $totalPages,
+                    'per_page' => $perPage,
+                    'total_records' => $totalUsers
+                ]
+            ]
+        ];
+
+        // echo "<pre>";
+        // print_r($data);
+        // echo "</pre>";
+
+        return view('pages/events/list', $data);
     }
 
     public function store(): string|false
