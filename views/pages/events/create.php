@@ -70,7 +70,7 @@ $values = [
                                 <div class="w-full xl:w-1/2">
                                     <label
                                         class="mb-3 block text-sm font-medium text-black dark:text-white">
-                                        Event Date <sup style="color: red;">*</sup>
+                                        Event Deadline <sup style="color: red;">*</sup>
                                     </label>
                                     <div class="relative">
                                         <input
