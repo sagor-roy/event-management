@@ -7,18 +7,26 @@ use PDOException;
 
 class Database
 {
-    private $host = "localhost";
-    private $db_name = "events_management";
-    private $username = "root";
-    private $password = "plzletme!n";
+    private $host;
+    private $db;
+    private $user;
+    private $pass;
+
+    public function __construct()
+    {
+        $this->host = env('DB_HOST');
+        $this->db = env('DB_NAME');
+        $this->user = env('DB_USER');
+        $this->pass = env('DB_PASS');
+    }
 
     public function connect(): PDO
     {
         try {
             $pdo = new PDO(
-                "mysql:host={$this->host};dbname={$this->db_name}",
-                $this->username,
-                $this->password,
+                "mysql:host={$this->host};dbname={$this->db}",
+                $this->user,
+                $this->pass,
                 [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
             );
             return $pdo;
@@ -26,5 +34,4 @@ class Database
             throw new \Exception("Database connection failed: " . $e->getMessage());
         }
     }
-    
 }
