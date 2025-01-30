@@ -14,7 +14,7 @@ Ensure you have the following installed:
 <details>
   <summary>Database Import</summary>
   
-  ###Check file in project root directory
+  ### Check file in project root directory
   
   <img src="https://raw.githubusercontent.com/sagor-roy/event-management/main/public/assets/src/images/screenshot.jpg" width="100%">
 </details>
