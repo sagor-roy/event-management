@@ -10,10 +10,11 @@ Ensure you have the following installed:
 - Composer
 
 ---
+
 <details>
   <summary>Database Import</summary>
-  Check file in project root directory
-  ![Alt text](https://github.com/sagor-roy/event-management/blob/main/public/assets/src/images/screenshot.jpg)
+  Check file in project root directory  
+  ![Alt text](https://raw.githubusercontent.com/sagor-roy/event-management/main/public/assets/src/images/screenshot.jpg)
 </details>
 
 ---
