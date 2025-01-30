@@ -122,7 +122,7 @@ ob_start();
                                             <td
                                                 class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                                 <div class="flex items-center space-x-3.5">
-                                                    <button class="hover:text-primary">
+                                                    <a href="<?= url('event/attendee/' . $row['id']) ?>" class="hover:text-primary">
                                                         <svg
                                                             class="fill-current"
                                                             width="18"
@@ -137,7 +137,7 @@ ob_start();
                                                                 d="M9 11.3906C7.67812 11.3906 6.60938 10.3219 6.60938 9C6.60938 7.67813 7.67812 6.60938 9 6.60938C10.3219 6.60938 11.3906 7.67813 11.3906 9C11.3906 10.3219 10.3219 11.3906 9 11.3906ZM9 7.875C8.38125 7.875 7.875 8.38125 7.875 9C7.875 9.61875 8.38125 10.125 9 10.125C9.61875 10.125 10.125 9.61875 10.125 9C10.125 8.38125 9.61875 7.875 9 7.875Z"
                                                                 fill="" />
                                                         </svg>
-                                                    </button>
+                                                    </a>
                                                     <a href="<?= url('event/edit/' . $row['id']) ?>" class="hover:text-primary">
                                                         <svg class="fill-current" width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <g opacity="0.8" clip-path="url(#clip0_88_10224)">
@@ -234,9 +234,9 @@ ob_start();
                             icon: "success",
                             confirmButtonText: "Close",
                         });
-                        
+
                         setInterval(() => {
-                            window.location.href = "<?=url('event/list')?>";
+                            window.location.href = "<?= url('event/list') ?>";
                         }, 1000);
                     },
                     error: function(error) {

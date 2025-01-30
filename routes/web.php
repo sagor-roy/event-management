@@ -1,6 +1,7 @@
 <?php
 
 use App\Base\Route;
+use App\Controller\AttendeeController;
 use App\Controller\AuthController;
 use App\Controller\EventController;
 use App\Controller\HomeController;
@@ -20,3 +21,5 @@ Route::get('/event/list', [EventController::class, 'list']);
 Route::get('/event/edit/{id}', [EventController::class, 'edit']);
 Route::post('/event/update/{id}', [EventController::class, 'update']);
 Route::get('/event/delete/{id}', [EventController::class, 'delete']);
+
+Route::get('/event/attendee/{id}', [AttendeeController::class, 'show']);
