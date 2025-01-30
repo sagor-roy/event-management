@@ -2,11 +2,8 @@
 
 namespace App\Controller;
 
-use App\Base\Auth;
-use App\Base\Redirect;
 use App\Model\Attendee;
 use App\Model\Event;
-use App\Model\User;
 
 class AttendeeController extends Controller
 {
@@ -27,6 +24,7 @@ class AttendeeController extends Controller
         $event =  $eventModel->getFirst('id', '=', $id);
 
         if (!$event) {
+            http_response_code(404);
             echo "404 NOT FOUND";
             exit;
         }
@@ -59,6 +57,7 @@ class AttendeeController extends Controller
         $event = $eventModel->getFirst('id', '=', $id);
 
         if (!$event) {
+            http_response_code(404);
             echo "404 NOT FOUND";
             exit;
         }

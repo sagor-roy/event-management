@@ -52,6 +52,7 @@ class EventController extends Controller
         $event =  $eventModel->getFirst('id', '=', $id);
 
         if (!$event) {
+            http_response_code(404);
             echo "404 NOT FOUND";
             exit;
         }

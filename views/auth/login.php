@@ -131,7 +131,7 @@ ob_start();
                 data: $(this).serialize(),
                 dataType: "json",
                 success: function(response) {
-                    window.location.href = "<?= url('') ?>";
+                    window.location.href = "<?= url('dashboard') ?>";
                 },
                 error: function(error) {
 

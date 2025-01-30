@@ -26,7 +26,6 @@ class Auth
     }
 
     // Login function
-
     public static function login($user): void
     {
         $_SESSION['user'] = $user;
