@@ -1,6 +1,35 @@
-# Project Installation Guide
+# Event Management System
 
-This guide will help you set up and run a raw PHP project on Windows, Ubuntu, and macOS. This project follows the Laravel MVC design pattern flow (Laravel Clone) and has great potential for further feature development.
+## Overview
+
+The Event Management System is a web-based application that allows users to create, manage, and view events, register attendees, and generate event reports. The project is developed using pure PHP (without frameworks) and MySQL.This project follows the Laravel MVC design pattern flow (Laravel Clone) and has great potential for further feature development.
+
+# Event Management System
+
+## Features
+
+### 1. User Authentication
+- Secure user login and registration.
+- Passwords are hashed for security.
+
+### 2. Event Management
+- Authenticated users can create, update, view, and delete events.
+- Events include details such as name, description, date, and maximum capacity.
+
+### 3. Attendee Registration
+- Users can register for events via a registration form.
+- Registration is restricted beyond the maximum event capacity.
+
+### 4. Event Dashboard
+- Displays events in a paginated, sortable, and filterable format.
+
+### 5. Event Reports
+- Admins can download attendee lists for specific events in CSV format.
+  
+
+## Project Installation Guide
+
+This guide will help you set up and run a raw PHP project on Windows, Ubuntu, and macOS.
 
 ## Prerequisites
 Ensure you have the following installed:
