@@ -19,3 +19,4 @@ Route::post('/event/store', [EventController::class, 'store']);
 Route::get('/event/list', [EventController::class, 'list']);
 Route::get('/event/edit/{id}', [EventController::class, 'edit']);
 Route::post('/event/update/{id}', [EventController::class, 'update']);
+Route::get('/event/delete/{id}', [EventController::class, 'delete']);

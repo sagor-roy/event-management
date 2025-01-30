@@ -1,9 +1,7 @@
 <?php
 
 $title = 'Event List | My Application';
-
 ob_start();
-
 ?>
 
 
@@ -51,7 +49,7 @@ ob_start();
                                         </th>
                                         <th
                                             class="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
-                                            Date
+                                            Event Date
                                         </th>
                                         <th
                                             class="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
@@ -153,7 +151,7 @@ ob_start();
                                                             </defs>
                                                         </svg>
                                                     </a>
-                                                    <button class="hover:text-primary">
+                                                    <button onclick="deleteEvent('<?= $row['id'] ?>')" class="hover:text-primary">
                                                         <svg
                                                             class="fill-current"
                                                             width="18"
@@ -212,8 +210,51 @@ ob_start();
 </main>
 
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function deleteEvent(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "<?= url('event/delete/') ?>" + id,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(response) {
+                        Swal.fire({
+                            title: "Success",
+                            text: response.message,
+                            icon: "success",
+                            confirmButtonText: "Close",
+                        });
+                        
+                        setInterval(() => {
+                            window.location.href = "<?=url('event/list')?>";
+                        }, 1000);
+                    },
+                    error: function(error) {
+                        Swal.fire({
+                            title: "Opps!!",
+                            text: error.responseJSON.message,
+                            icon: "error",
+                            confirmButtonText: "Close",
+                        });
+                    }
+                });
+            }
+        })
+    }
+</script>
+
+
 <?php
 $content = ob_get_clean();
-
 include(VIEWS_PATH . 'layouts/app.php');
 ?>

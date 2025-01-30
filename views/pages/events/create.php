@@ -1,6 +1,5 @@
 <?php
 $title = 'Create Event | My Application';
-
 ob_start();
 
 $event_action = isset($status) && $status === 'edit' ? 'Edit' : 'Create';
@@ -186,16 +185,7 @@ $values = [
     </div>
 </main>
 
-
-<?php
-$content = ob_get_clean();
-
-include(VIEWS_PATH . 'layouts/app.php');
-?>
-
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
     $(document).ready(function() {
         $("#submitForm").submit(function(e) {
@@ -239,14 +229,14 @@ include(VIEWS_PATH . 'layouts/app.php');
                             confirmButtonText: "Close",
                         });
 
-                        if (errorsData.length > 0) {
-                            $.each(errorsData, function(field, messages) {
-                                $.each(messages, function(index, message) {
-                                    errorList.append('<li class="error-item">' + message + '</li>');
-                                });
+                        errorList.append('<li class="error-item">' + error.responseJSON.message + '</li>');
+
+                        $.each(errorsData, function(field, messages) {
+                            $.each(messages, function(index, message) {
+                                errorList.append('<li class="error-item">' + message + '</li>');
                             });
-                            $('#errors').append(errorList);
-                        }
+                        });
+                        $('#errors').append(errorList);
                     } else {
                         errorList.append('<li class="error-item">' + error.responseJSON.message + '</li>');
                         $('#errors').append(errorList);
@@ -260,3 +250,9 @@ include(VIEWS_PATH . 'layouts/app.php');
         });
     });
 </script>
+
+
+<?php
+$content = ob_get_clean();
+include(VIEWS_PATH . 'layouts/app.php');
+?>

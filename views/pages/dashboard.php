@@ -1,9 +1,7 @@
 <?php
 
 use App\Base\Auth;
-
 $title = 'Dashboard | My Application';
-
 ob_start();
 
 ?>
@@ -217,6 +215,5 @@ ob_start();
 
 <?php
 $content = ob_get_clean();
-
 include(VIEWS_PATH . 'layouts/app.php');
 ?>

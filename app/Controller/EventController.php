@@ -43,10 +43,6 @@ class EventController extends Controller
             ]
         ];
 
-        // echo "<pre>";
-        // print_r($data);
-        // echo "</pre>";
-
         return view('pages/events/list', $data);
     }
 
@@ -76,9 +72,6 @@ class EventController extends Controller
             'status' => isset($_POST['status']) ? trim($_POST['status']) : '',
             'description' => isset($_POST['description']) ? trim($_POST['description']) : '',
         ];
-
-        // var_dump($_POST);
-        // exit;
 
         $validator = new Validator($data, [
             'name' => 'required',
@@ -179,6 +172,45 @@ class EventController extends Controller
             return json_encode([
                 'status' => 'error',
                 'message' => "Event creation failed.",
+                'data' => []
+            ]);
+        }
+    }
+
+    public function delete($id)
+    {
+        $eventModel = new Event();
+        $event = $eventModel->getFirst('id', '=', $id);
+        if (!$event) {
+            http_response_code(404);
+            return json_encode([
+                'status' => 'error',
+                'message' => "Event not found.",
+                'data' => []
+            ]);
+        }
+
+        try {
+            if ($eventModel->delete($id)) {
+                http_response_code(200);
+                return json_encode([
+                    'status' => 'success',
+                    'message' => "Event deleted successfully!",
+                    'data' => []
+                ]);
+            } else {
+                http_response_code(500);
+                return json_encode([
+                    'status' => 'error',
+                    'message' => "Event deletion failed.",
+                    'data' => []
+                ]);
+            }
+        } catch (\Exception $e) {
+            http_response_code(500);
+            return json_encode([
+                'status' => 'error',
+                'message' => "Error occurred: " . $e->getMessage(),
                 'data' => []
             ]);
         }

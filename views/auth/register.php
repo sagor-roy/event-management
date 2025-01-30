@@ -182,13 +182,6 @@ ob_start();
 </div>
 
 
-<?php
-$content = ob_get_clean();
-include(VIEWS_PATH . 'layouts/app.php');
-?>
-
-
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
@@ -234,3 +227,10 @@ include(VIEWS_PATH . 'layouts/app.php');
         });
     });
 </script>
+
+
+
+<?php
+$content = ob_get_clean();
+include(VIEWS_PATH . 'layouts/app.php');
+?>

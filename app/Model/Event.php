@@ -91,6 +91,20 @@ class Event extends Database
         }
     }
 
+    public function delete(int $id): bool
+    {
+        try {
+            $query = "DELETE FROM $this->table_name WHERE id = :id";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            throw new \Exception("Event deletion failed: " . $e->getMessage());
+        }
+    }
+    
+
     public function paginate(int $perPage = 10, int $page = 1): array
     {
         try {
