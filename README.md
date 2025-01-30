@@ -219,19 +219,7 @@ http://localhost:8000
 ---
 
 
-## Technical Details
-
-### Backend
-- Developed using pure PHP (without any frameworks).
-- Uses MySQL as the database.
-- Server-side validation implemented.
-- Prepared statements used to prevent SQL injection.
-
-### Frontend
-- Tailwind is used to create a responsive UI.
-- Basic form validation on the server side.
-
-### Hosting and Deployment
+## Hosting and Deployment
 - Hosted on Amazon Web Service (AWS).
 - Live project link: [Insert Live Link].
 - Login credentials for testing:
