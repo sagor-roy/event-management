@@ -1,6 +1,6 @@
 # Project Installation Guide
 
-This guide will help you set up and run a raw PHP project on Windows, Ubuntu, and macOS.
+This guide will help you set up and run a raw PHP project on Windows, Ubuntu, and macOS. This project follows the Laravel MVC design pattern flow (Laravel Clone) and has great potential for further feature development.
 
 ## Prerequisites
 Ensure you have the following installed:
