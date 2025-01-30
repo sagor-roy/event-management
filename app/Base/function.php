@@ -11,9 +11,25 @@ function env($key): mixed
     return $_ENV[$key];
 }
 
-function asset($path): string
+function asset($path, $secure = null)
 {
-    return BASE_URL . '/assets/' . ltrim($path, '/');
+    if ($secure === null) {
+        $secure = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+    }
+    $path = ltrim($path, '/');
+    $baseUrl = sprintf(
+        "%s://%s",
+        $secure ? "https" : "http",
+        $_SERVER['HTTP_HOST']
+    );
+    $assetDir = 'assets';
+    
+    return sprintf(
+        "%s/%s/%s",
+        rtrim($baseUrl, '/'),
+        trim($assetDir, '/'),
+        $path
+    );
 }
 
 function url($path): string
@@ -70,4 +86,3 @@ function generateSlug(string $string): string
     $slug = preg_replace('/[^a-z0-9]+/', '-', $slug);
     return trim($slug, '-');
 }
-
