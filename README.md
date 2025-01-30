@@ -23,11 +23,12 @@ The Event Management System is a web-based application that allows users to crea
 
 ### 5. Event Reports
 - Admins can download attendee lists for specific events in CSV format.
-  
 
-## Project Installation Guide
+---
 
-This guide will help you set up and run a raw PHP project on Windows, Ubuntu, and macOS.
+# Project Installation Guide
+
+This guide will help you set up and run a project on Windows, Ubuntu, and macOS.
 
 ## Prerequisites
 Ensure you have the following installed:
