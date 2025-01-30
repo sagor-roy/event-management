@@ -36,8 +36,6 @@ class AttendeeController extends Controller
         $totalAtt = $attendeesModel->count();
         $totalPages = ceil($totalAtt / $perPage);
 
-        $eventModel = new Event;
-
         $data = [
             'status' => 'success',
             'event' => $event,
@@ -53,5 +51,43 @@ class AttendeeController extends Controller
         ];
 
         return view('pages/events/event_attendee', $data);
+    }
+
+    public function export(int|string $id)
+    {
+        $eventModel = new Event;
+        $event = $eventModel->getFirst('id', '=', $id);
+
+        if (!$event) {
+            echo "404 NOT FOUND";
+            exit;
+        }
+
+        $attendeesModel = new Attendee;
+        $attendees = $attendeesModel->getAll($id);
+
+        $data = [["ID", "Name", "Email", "Phone", "Registered_Date"]];
+
+        foreach ($attendees as $attendee) {
+            $data[] = [
+                $attendee['id'],
+                $attendee['name'],
+                $attendee['email'],
+                $attendee['phone'],
+                date('M d, Y g:i A', strtotime($attendee['registered_at']))
+            ];
+        }
+
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename="' . $event['slug'] . '.csv"');
+
+        $output = fopen('php://output', 'w');
+
+        foreach ($data as $row) {
+            fputcsv($output, $row);
+        }
+
+        fclose($output);
+        exit;
     }
 }

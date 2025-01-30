@@ -23,3 +23,5 @@ Route::post('/event/update/{id}', [EventController::class, 'update']);
 Route::get('/event/delete/{id}', [EventController::class, 'delete']);
 
 Route::get('/event/attendee/{id}', [AttendeeController::class, 'show']);
+
+Route::get('/export/attendee/{id}', [AttendeeController::class, 'export']);

@@ -10,11 +10,12 @@ class Attendee extends Database
 {
     private string $table_name = "attendees";
 
-    public function getAll(): array|false
+    public function getAll(int|string $event_id): array|false
     {
         try {
-            $query = "SELECT * FROM $this->table_name";
+            $query = "SELECT id,name,email,phone,registered_at FROM $this->table_name WHERE event_id = :event_id";
             $stmt = $this->connect()->prepare($query);
+            $stmt->bindParam(':event_id', $event_id, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
