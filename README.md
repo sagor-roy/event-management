@@ -175,7 +175,7 @@ http://localhost:8000
 
 ## Additional Notes
 - Use `composer install`
-- Modify `config.php` or `config/database.php` as per your environment settings.
+- Modify `config/database.php` as per your environment settings if needed.
 
 ---
 
