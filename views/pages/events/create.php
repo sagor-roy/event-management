@@ -3,7 +3,19 @@ $title = 'Create Event | My Application';
 
 ob_start();
 
+$event_action = isset($status) && $status === 'edit' ? 'Edit' : 'Create';
+$event_action_url = isset($status) && $status === 'edit' ? url('event/update/' . $event['id']) : url('event/store');
+
+$values = [
+    'name' => isset($event['name']) ? $event['name'] : '',
+    'date' => isset($event['date']) ? date('M d, Y', strtotime($event['date'])) : '',
+    'location' => isset($event['location']) ? $event['location'] : '',
+    'max_capacity' => isset($event['max_capacity']) ? $event['max_capacity'] : '',
+    'status' => isset($event['status']) ? $event['status'] : '',
+    'description' => isset($event['description']) ? $event['description'] : '',
+];
 ?>
+
 
 <main>
     <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
@@ -11,7 +23,7 @@ ob_start();
         <div
             class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <h2 class="text-title-md2 font-bold text-black dark:text-white">
-                Event Create
+                Event <?= $event_action ?>
             </h2>
 
             <nav>
@@ -19,7 +31,7 @@ ob_start();
                     <li>
                         <a class="font-medium" href="index.html">Dashboard /</a>
                     </li>
-                    <li class="font-medium text-primary">Create</li>
+                    <li class="font-medium text-primary"><?= $event_action ?></li>
                 </ol>
             </nav>
         </div>
@@ -49,6 +61,7 @@ ob_start();
                                         Event Name <sup style="color: red;">*</sup>
                                     </label>
                                     <input
+                                        value="<?= $values['name'] ?>"
                                         name="name"
                                         type="text"
                                         placeholder="Event Name"
@@ -62,6 +75,7 @@ ob_start();
                                     </label>
                                     <div class="relative">
                                         <input
+                                            value="<?= $values['date'] ?>"
                                             name="date"
                                             class="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                                             placeholder="mm/dd/yyyy"
@@ -91,6 +105,7 @@ ob_start();
                                         Event Location <sup style="color: red;">*</sup>
                                     </label>
                                     <input
+                                        value="<?= $values['location'] ?>"
                                         name="location"
                                         type="text"
                                         placeholder="Location"
@@ -103,6 +118,7 @@ ob_start();
                                         Event Capacity <sup style="color: red;">*</sup>
                                     </label>
                                     <input
+                                        value="<?= $values['max_capacity'] ?>"
                                         name="max_capacity"
                                         type="number" min="1"
                                         placeholder="Capacity"
@@ -116,15 +132,13 @@ ob_start();
                                     Select Option <sup style="color: red;">*</sup>
                                 </label>
                                 <div
-                                    x-data="{ isOptionSelected: false }"
                                     class="relative z-20 bg-white dark:bg-form-input">
                                     <select
                                         name="status"
                                         class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 pl-5 pr-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
-                                        :class="isOptionSelected && 'text-black dark:text-white'"
-                                        @change="isOptionSelected = true">
-                                        <option value="1" class="text-body">Active</option>
-                                        <option value="0" class="text-body">Inactive</option>
+                                        :class="isOptionSelected && 'text-black dark:text-white'">
+                                        <option value="1" <?php echo $values['status'] == '1' ? 'selected' : ''; ?>>Active</option>
+                                        <option value="0" <?php echo $values['status'] == '0' ? 'selected' : ''; ?>>Inactive</option>
                                     </select>
                                     <span
                                         class="absolute right-4 top-1/2 z-10 -translate-y-1/2">
@@ -155,13 +169,13 @@ ob_start();
                                     name="description"
                                     rows="6"
                                     placeholder="Event Details"
-                                    class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"></textarea>
+                                    class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"><?= $values['description'] ?></textarea>
                             </div>
 
                             <button
                                 type="submit" id="submit-button"
                                 class="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
-                                Create Event
+                                <?= $event_action ?> Event
                             </button>
                         </div>
                     </form>
@@ -192,7 +206,7 @@ include(VIEWS_PATH . 'layouts/app.php');
             submitButton.text("Loading...");
 
             $.ajax({
-                url: "<?= url('event/store') ?>",
+                url: "<?= $event_action_url ?>",
                 type: "POST",
                 data: $(this).serialize(),
                 dataType: "json",
@@ -205,7 +219,10 @@ include(VIEWS_PATH . 'layouts/app.php');
                     });
 
                     $('#errors').html('');
-                    $("#submitForm")[0].reset();
+
+                    if ("<?= $event_action ?>" == 'Create') {
+                        $("#submitForm")[0].reset();
+                    }
                 },
                 error: function(error) {
 
@@ -222,12 +239,14 @@ include(VIEWS_PATH . 'layouts/app.php');
                             confirmButtonText: "Close",
                         });
 
-                        $.each(errorsData, function(field, messages) {
-                            $.each(messages, function(index, message) {
-                                errorList.append('<li class="error-item">' + message + '</li>');
+                        if (errorsData.length > 0) {
+                            $.each(errorsData, function(field, messages) {
+                                $.each(messages, function(index, message) {
+                                    errorList.append('<li class="error-item">' + message + '</li>');
+                                });
                             });
-                        });
-                        $('#errors').append(errorList);
+                            $('#errors').append(errorList);
+                        }
                     } else {
                         errorList.append('<li class="error-item">' + error.responseJSON.message + '</li>');
                         $('#errors').append(errorList);
@@ -235,7 +254,7 @@ include(VIEWS_PATH . 'layouts/app.php');
                 },
                 complete: function() {
                     submitButton.prop('disabled', false);
-                    submitButton.text("Create Event");
+                    submitButton.text("<?= $event_action ?> Event");
                 }
             });
         });

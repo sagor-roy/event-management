@@ -17,3 +17,5 @@ Route::get('/logout', [HomeController::class, 'logout']);
 Route::get('/event/create', [EventController::class, 'index']);
 Route::post('/event/store', [EventController::class, 'store']);
 Route::get('/event/list', [EventController::class, 'list']);
+Route::get('/event/edit/{id}', [EventController::class, 'edit']);
+Route::post('/event/update/{id}', [EventController::class, 'update']);

@@ -63,6 +63,33 @@ class Event extends Database
         }
     }
 
+    public function update(int $id, array $data): bool
+    {
+        try {
+            $query = "UPDATE $this->table_name 
+                  SET name = :name, slug = :slug, description = :description, 
+                      date = :date, location = :location, max_capacity = :max_capacity, 
+                      status = :status, created_by = :created_by 
+                  WHERE id = :id";
+
+            $stmt = $this->connect()->prepare($query);
+
+            $stmt->bindParam(':name', $data['name']);
+            $stmt->bindParam(':slug', $data['slug']);
+            $stmt->bindParam(':description', $data['description']);
+            $stmt->bindParam(':date', $data['date']);
+            $stmt->bindParam(':location', $data['location']);
+            $stmt->bindParam(':max_capacity', $data['max_capacity']);
+            $stmt->bindParam(':status', $data['status']);
+            $stmt->bindParam(':created_by', $data['created_by']);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            throw new \Exception("Event update failed: " . $e->getMessage());
+        }
+    }
 
     public function paginate(int $perPage = 10, int $page = 1): array
     {
@@ -80,7 +107,7 @@ class Event extends Database
                           GROUP BY event_id
                       ) a ON e.id = a.event_id
                       LEFT JOIN users u ON e.created_by = u.id
-                      ORDER BY e.date DESC
+                      ORDER BY e.id DESC
                       LIMIT :perPage OFFSET :offset";
 
             $stmt = $this->connect()->prepare($query);

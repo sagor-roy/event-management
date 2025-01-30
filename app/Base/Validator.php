@@ -64,8 +64,9 @@ class Validator
 
     protected function validateRequired($value)
     {
-        return !empty($value);
+        return $value !== null && $value !== '';
     }
+
 
     protected function validateEmail($value)
     {
@@ -86,5 +87,11 @@ class Validator
     {
         $confirmationField = 'password_confirmation';
         return isset($this->data[$confirmationField]) && $value === $this->data[$confirmationField];
+    }
+
+    protected function validateIn($value, $param = null)
+    {
+        $allowedValues = explode(',', $param);
+        return in_array($value, $allowedValues, true);
     }
 }
