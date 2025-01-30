@@ -24,6 +24,11 @@ The Event Management System is a web-based application that allows users to crea
 ### 5. Event Reports
 - Admins can download attendee lists for specific events in CSV format.
 
+### 6. Bonus Features
+- Search Functionality: Search across events and attendees.
+- AJAX-based Registration: Enhances user experience. Every form submit with AJAX
+- JSON API Endpoint: Fetch event details programmatically.
+
 ---
 
 # Project Installation Guide
