@@ -10,6 +10,13 @@ Ensure you have the following installed:
 - Composer
 
 ---
+<details>
+  <summary>Database Import</summary>
+  Check file in project root directory
+  ![Alt text](https://github.com/sagor-roy/event-management/blob/main/public/assets/src/images/screenshot.jpg)
+</details>
+
+---
 
 <details>
   <summary>Installation on Windows</summary>
