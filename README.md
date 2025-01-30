@@ -1,13 +1,13 @@
-# PHP Project Installation Guide
+# Project Installation Guide
 
-This guide will help you set up and run a raw PHP project on Windows, Ubuntu, and macOS.
+This guide will help you set up and run a raw PHP project on Windows, Ubuntu, and macOS. This project follows the Laravel MVC design pattern flow (Laravel Clone) and has great potential for further feature development.
 
 ## Prerequisites
 Ensure you have the following installed:
-- PHP (>=7.4 recommended)
-- MySQL (or any other database of your choice)
+- PHP (>=8.0 recommended)
+- MySQL
 - Apache/Nginx (or use PHP's built-in server)
-- Composer (if dependencies are managed via Composer)
+- Composer
 
 ---
 
@@ -20,18 +20,30 @@ Ensure you have the following installed:
 
 ### 2. Clone the Repository
 ```sh
- git clone https://github.com/your-username/your-repo.git
+ git clone https://github.com/sagor-roy/event-management.git
  cd your-repo
 ```
 
-### 3. Configure `.env` (If applicable)
+### 3. Configure `.env`
 Copy `.env.example` to `.env` and update the database configuration.
+```sh
+APP_NAME = 'Event Management'
+APP_ENV = local
 
+DB_HOST = localhost
+DB_NAME = 'events_management'
+DB_USER = root
+DB_PASS = 'your_password'
+```
+For Production (Hide Server Display Error)
+```sh
+APP_ENV = production
+```
 ### 4. Start Apache & MySQL
 - If using XAMPP, start Apache and MySQL from the XAMPP Control Panel.
 - If manually installed, use:
 ```sh
- php -S localhost:8000
+ php -S localhost:8000 -t public
 ```
 
 ### 5. Import Database
@@ -58,13 +70,25 @@ sudo apt install apache2 php php-mysql mysql-server unzip
 
 ### 2. Clone the Repository
 ```sh
-git clone https://github.com/your-username/your-repo.git
+git clone https://github.com/sagor-roy/event-management.git
 cd your-repo
 ```
 
-### 3. Configure `.env`
-Copy `.env.example` to `.env` and configure database credentials.
+### 3. Configure `.env` 
+Copy `.env.example` to `.env` and update the database configuration.
+```sh
+APP_NAME = 'Event Management'
+APP_ENV = local
 
+DB_HOST = localhost
+DB_NAME = 'events_management'
+DB_USER = root
+DB_PASS = 'your_password'
+```
+For Production (Hide Server Display Error)
+```sh
+APP_ENV = production
+```
 ### 4. Set Up MySQL Database
 ```sh
 sudo mysql -u root -p
@@ -88,6 +112,10 @@ Open your browser and go to:
 ```sh
 http://localhost/your-repo
 ```
+Or run:
+```sh
+ php -S localhost:8000 -t public
+```
 </details>
 
 ---
@@ -107,13 +135,25 @@ brew install php mysql apache2
 
 ### 3. Clone the Repository
 ```sh
-git clone https://github.com/your-username/your-repo.git
+git clone https://github.com/sagor-roy/event-management.git
 cd your-repo
 ```
 
-### 4. Configure `.env`
-Copy `.env.example` to `.env` and configure database settings.
+### 3. Configure `.env`
+Copy `.env.example` to `.env` and update the database configuration.
+```sh
+APP_NAME = 'Event Management'
+APP_ENV = local
 
+DB_HOST = localhost
+DB_NAME = 'events_management'
+DB_USER = root
+DB_PASS = 'your_password'
+```
+For Production (Hide Server Display Error)
+```sh
+APP_ENV = production
+```
 ### 5. Start MySQL and Import Database
 ```sh
 brew services start mysql
@@ -123,7 +163,7 @@ mysql -u root -p your_database < database.sql
 
 ### 6. Run PHP's Built-in Server (Optional)
 ```sh
-php -S localhost:8000
+php -S localhost:8000 -t public
 ```
 Then, visit:
 ```sh
@@ -134,12 +174,9 @@ http://localhost:8000
 ---
 
 ## Additional Notes
-- Use `composer install` if dependencies are managed via Composer.
-- Ensure the `storage/` and `cache/` directories have appropriate permissions if applicable.
-- Modify `config.php` or `config/database.php` as per your environment settings.
+- Use `composer install`
+- Modify `config/database.php` as per your environment settings if needed.
 
 ---
 
-## License
-This project is licensed under the [MIT License](LICENSE).
 
