@@ -23,7 +23,7 @@ function asset($path, $secure = null)
         $_SERVER['HTTP_HOST']
     );
     $assetDir = 'assets';
-    
+
     return sprintf(
         "%s/%s/%s",
         rtrim($baseUrl, '/'),
@@ -32,10 +32,25 @@ function asset($path, $secure = null)
     );
 }
 
-function url($path): string
+function get_base_url($protocol = true): string
 {
-    return BASE_URL . '/' . $path;
+    $isSecure = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+    $protocol_text = $isSecure ? 'https://' : 'http://';
+
+    $host = $_SERVER['HTTP_HOST'];
+
+    $subfolder = dirname($_SERVER['SCRIPT_NAME']);
+    $subfolder = $subfolder !== '/' ? $subfolder : '';
+
+    return ($protocol ? $protocol_text : '') . $host . $subfolder;
 }
+
+
+function url($path, $protocol = true): string
+{
+    return rtrim(get_base_url($protocol), '/') . '/' . ltrim($path, '/');
+}
+
 
 function renderPaginationLinks(int $currentPage, int $totalPages, int $perPage): string
 {
