@@ -24,7 +24,7 @@ Ensure you have the following installed:
  cd your-repo
 ```
 
-### 3. Configure `.env` (If applicable)
+### 3. Configure `.env`
 Copy `.env.example` to `.env` and update the database configuration.
 ```sh
 APP_NAME = 'Event Management'
@@ -74,7 +74,7 @@ git clone https://github.com/sagor-roy/event-management.git
 cd your-repo
 ```
 
-### 3. Configure `.env` (If applicable)
+### 3. Configure `.env` 
 Copy `.env.example` to `.env` and update the database configuration.
 ```sh
 APP_NAME = 'Event Management'
@@ -139,7 +139,7 @@ git clone https://github.com/sagor-roy/event-management.git
 cd your-repo
 ```
 
-### 3. Configure `.env` (If applicable)
+### 3. Configure `.env`
 Copy `.env.example` to `.env` and update the database configuration.
 ```sh
 APP_NAME = 'Event Management'
