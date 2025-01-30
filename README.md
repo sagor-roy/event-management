@@ -35,7 +35,7 @@ DB_NAME = 'events_management'
 DB_USER = root
 DB_PASS = 'your_password'
 ```
-For Production
+For Production (Hide Server Display Error)
 ```sh
 APP_ENV = production
 ```
@@ -85,7 +85,7 @@ DB_NAME = 'events_management'
 DB_USER = root
 DB_PASS = 'your_password'
 ```
-For Production
+For Production (Hide Server Display Error)
 ```sh
 APP_ENV = production
 ```
@@ -150,7 +150,7 @@ DB_NAME = 'events_management'
 DB_USER = root
 DB_PASS = 'your_password'
 ```
-For Production
+For Production (Hide Server Display Error)
 ```sh
 APP_ENV = production
 ```
