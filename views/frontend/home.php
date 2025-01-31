@@ -53,7 +53,7 @@ ob_start();
                         <div class="flex items-center justify-between gap-2">
                             <!-- Buy Action -->
                             <div class="flex items-center gap-x-3">
-                                <a href="<?= url('/details/slug') ?>"
+                                <a href="<?= url('/details/'. $row['slug']) ?>"
                                     data-ticket-id="1"
                                     class="openModalBtn effect-scale flex h-8 w-24 items-center justify-center rounded-lg bg-blue-400 text-xs font-medium text-white">
                                     Register Now

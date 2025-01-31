@@ -14,13 +14,14 @@ class HomeController extends Controller
     {
 
         $defaultPerPage = 5;
+        $event_status = 1; // only active events fetch
 
         $perPage = isset($_GET['limit']) ? (int)$_GET['limit'] : $defaultPerPage;
         $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
 
         $eventModel = new Event;
-        $events = $eventModel->paginate($perPage, $page, 1);
-        $totalUsers = $eventModel->count(1);
+        $events = $eventModel->paginate($perPage, $page, $event_status);
+        $totalUsers = $eventModel->count($event_status);
         $totalPages = ceil($totalUsers / $perPage);
 
         $data = [
@@ -41,6 +42,19 @@ class HomeController extends Controller
 
     public function details(string $slug)
     {
-        return view('frontend/details');
+        $eventModel = new Event;
+        $event =  $eventModel->getFirst('slug', '=', $slug);
+
+        if (!$event) {
+            http_response_code(404);
+            echo "404 NOT FOUND";
+            exit;
+        }
+
+        $data = [
+            'event' => $event
+        ];
+
+        return view('frontend/details', $data);
     }
 }

@@ -7,10 +7,10 @@ ob_start();
 
 <div class="space-y-3 bg-gray-300 py-20 text-center">
     <h1 class="text-2xl font-bold">
-        Lorem ipsum dolor sit amet consectetur
+        <?=$event['name']?>
     </h1>
-    <h1><span class="font-bold">Deadline:</span> Jan 05, 2025</h1>
-    <h1><span class="font-bold">Location:</span> Dhaka</h1>
+    <h1><span class="font-bold">Deadline:</span> <?= date('M d, Y', strtotime($event['date'])) ?></h1>
+    <h1><span class="font-bold">Location:</span> <?=$event['location']?></h1>
 </div>
 
 <!-- buy ticket container -->
