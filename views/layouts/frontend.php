@@ -22,16 +22,18 @@ $hideLayout = in_array($route, $hideLayoutRoutes);
         href="https://cdn.jsdelivr.net/npm/swiper@11.0.5/swiper-bundle.min.css" />
     <link rel="stylesheet" href="<?= asset('src/output.css') ?>" />
     <link href="<?= asset('src/common.css') ?>" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.0.5/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <title><?php echo $title ?? 'Event Management'; ?></title>
 </head>
 
 <body>
-    <div class="mx-auto max-w-[550px] overflow-x-hidden">
+    <div class="mx-auto container overflow-x-hidden">
         <!-- header starts -->
         <header
             class="fixed inset-x-0 top-0 z-50 h-[55px] w-full bg-gray-400 text-white">
             <div
-                class="container relative flex h-full max-w-[550px] items-center justify-between">
+                class="container relative flex h-full items-center justify-between">
                 <!-- back button -->
 
 
@@ -83,6 +85,8 @@ $hideLayout = in_array($route, $hideLayoutRoutes);
         </main>
         <!-- main ends -->
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.all.min.js"></script>
 </body>
 
 </html>

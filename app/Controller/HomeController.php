@@ -13,7 +13,7 @@ class HomeController extends Controller
     public function index()
     {
 
-        $defaultPerPage = 5;
+        $defaultPerPage = 6;
         $event_status = 1; // only active events fetch
 
         $perPage = isset($_GET['limit']) ? (int)$_GET['limit'] : $defaultPerPage;
@@ -36,6 +36,10 @@ class HomeController extends Controller
                 ]
             ]
         ];
+
+        // echo "<pre>";
+        // print_r($data);
+        // echo "</pre>";
 
         return view('frontend/home', $data);
     }
@@ -72,7 +76,7 @@ class HomeController extends Controller
             http_response_code(400);
             return json_encode([
                 'status' => 'error',
-                'message' => "Validation Failed",
+                'message' => "Please check your input fields.",
                 'data' => $validator->errors()
             ]);
         }
@@ -84,7 +88,7 @@ class HomeController extends Controller
             http_response_code(400);
             return json_encode([
                 'status' => 'error',
-                'message' => "Event not found or registration closed or sit stockout",
+                'message' => "Event registration closed or sit stockout",
                 'data' => []
             ]);
         }

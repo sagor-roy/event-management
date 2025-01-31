@@ -13,12 +13,12 @@ ob_start();
 <!-- buy ticket container -->
 <div class="container">
     <div class="my-6">
-        <div class="lg:mx-10 space-y-5">
+        <div class="lg:mx-10 grid grid-cols-1 lg:grid-cols-2 gap-10">
             <?php
             foreach ($data['events'] as $row) :
             ?>
                 <!-- Ticket Card  -->
-                <div class="block w-full rounded-md bg-gray-100 p-4 shadow-card">
+                <div class="block w-full relative rounded-md bg-gray-100 p-4 shadow-card">
                     <h4 class="mb-2.5 text-md font-semibold text-dark">
                         <?= $row['name'] ?>
                     </h4>
@@ -48,12 +48,17 @@ ob_start();
                             <p>Total: <?= $row['max_capacity'] ?> Sit</p>
                         </div>
                     </div>
+
+                    <?php if ($row['remaining_tickets'] === 0): ?>
+                        <img src="<?= asset('src/images/sold_out.png') ?>" class="w-50 top-5 absolute right-1 md:right-5" alt="sold out">
+                    <?php endif ?>
                     <!-- ticket info ends -->
+                    <?php if ($row['remaining_tickets'] > 0): ?>
                     <div class="mt-6">
                         <div class="flex items-center justify-between gap-2">
                             <!-- Buy Action -->
                             <div class="flex items-center gap-x-3">
-                                <a href="<?= url('/details/'. $row['slug']) ?>"
+                                <a href="<?= url('/details/' . $row['slug']) ?>"
                                     data-ticket-id="1"
                                     class="openModalBtn effect-scale flex h-8 w-24 items-center justify-center rounded-lg bg-blue-400 text-xs font-medium text-white">
                                     Register Now
@@ -63,6 +68,7 @@ ob_start();
                             <!-- Buy Action ends -->
                         </div>
                     </div>
+                    <?php endif ?>
                 </div>
                 <!-- Ticket Card  ends -->
             <?php
