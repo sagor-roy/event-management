@@ -10,10 +10,17 @@ class Attendee extends Database
 {
     private string $table_name = "attendees";
 
+    /**
+     * Retrieves all attendees for a given event.
+     *
+     * @param int|string $event_id The event ID to fetch attendees for.
+     * @return array|false The list of attendees or false on failure.
+     * @throws \Exception If data fetching fails.
+     */
     public function getAll(int|string $event_id): array|false
     {
         try {
-            $query = "SELECT id,name,email,phone,registered_at FROM $this->table_name WHERE event_id = :event_id";
+            $query = "SELECT id, name, email, phone, registered_at FROM $this->table_name WHERE event_id = :event_id";
             $stmt = $this->connect()->prepare($query);
             $stmt->bindParam(':event_id', $event_id, PDO::PARAM_INT);
             $stmt->execute();
@@ -23,6 +30,16 @@ class Attendee extends Database
         }
     }
 
+    /**
+     * Retrieves the first attendee matching a given column condition.
+     *
+     * @param string $column The column name to filter by.
+     * @param string $operator The comparison operator (e.g., '=', '!=' '<', 'LIKE').
+     * @param mixed $value The value to compare against.
+     * @return array|false The first matching attendee or false if none found.
+     * @throws \InvalidArgumentException If an invalid operator is used.
+     * @throws \Exception If data fetching fails.
+     */
     public function getFirst(string $column, string $operator, mixed $value): array|false
     {
         try {
@@ -41,7 +58,15 @@ class Attendee extends Database
         }
     }
 
-
+    /**
+     * Retrieves a paginated list of attendees for a given event.
+     *
+     * @param int $perPage The number of attendees per page.
+     * @param int $page The current page number.
+     * @param int|string $event_id The event ID to filter attendees.
+     * @return array The paginated list of attendees.
+     * @throws \Exception If pagination query fails.
+     */
     public function paginate(int $perPage = 10, int $page = 1, $event_id): array
     {
         try {
@@ -63,6 +88,12 @@ class Attendee extends Database
         }
     }
 
+    /**
+     * Counts the total number of attendees.
+     *
+     * @return int The total count of attendees.
+     * @throws \Exception If counting fails.
+     */
     public function count(): int
     {
         try {
@@ -72,7 +103,7 @@ class Attendee extends Database
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result['total'] ?? 0;
         } catch (PDOException $e) {
-            throw new \Exception("Counting users failed: " . $e->getMessage());
+            throw new \Exception("Counting attendees failed: " . $e->getMessage());
         }
     }
 }

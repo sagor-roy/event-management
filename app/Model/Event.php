@@ -10,6 +10,12 @@ class Event extends Database
 {
     private string $table_name = "events";
 
+    /**
+     * Fetches all events from the database.
+     * 
+     * @return array|false Returns an associative array of all events or false if no events are found.
+     * @throws \Exception If data fetching fails.
+     */
     public function getAll(): array|false
     {
         try {
@@ -22,6 +28,16 @@ class Event extends Database
         }
     }
 
+    /**
+     * Fetches the first event that matches the given column, operator, and value.
+     * 
+     * @param string $column The column to filter by.
+     * @param string $operator The operator to use for comparison (e.g., '=', '!=', '<', '>', 'LIKE').
+     * @param mixed $value The value to compare against.
+     * @return array|false Returns an associative array of the first matching event or false if no match is found.
+     * @throws \InvalidArgumentException If the operator is invalid.
+     * @throws \Exception If data fetching fails.
+     */
     public function getFirst(string $column, string $operator, mixed $value): array|false
     {
         try {
@@ -39,6 +55,14 @@ class Event extends Database
             throw new \Exception("Data fetching failed: " . $e->getMessage());
         }
     }
+
+    /**
+     * Creates a new event in the database.
+     * 
+     * @param array $data An associative array containing event data (name, slug, description, date, location, max_capacity, status, created_by).
+     * @return bool Returns true if the event is successfully created.
+     * @throws \Exception If event creation fails.
+     */
     public function create(array $data): bool
     {
         try {
@@ -63,6 +87,14 @@ class Event extends Database
         }
     }
 
+    /**
+     * Updates an existing event in the database.
+     * 
+     * @param int $id The ID of the event to update.
+     * @param array $data An associative array containing updated event data (name, slug, description, date, location, max_capacity, status, created_by).
+     * @return bool Returns true if the event is successfully updated.
+     * @throws \Exception If event update fails.
+     */
     public function update(int $id, array $data): bool
     {
         try {
@@ -91,6 +123,13 @@ class Event extends Database
         }
     }
 
+    /**
+     * Deletes an event from the database.
+     * 
+     * @param int $id The ID of the event to delete.
+     * @return bool Returns true if the event is successfully deleted.
+     * @throws \Exception If event deletion fails.
+     */
     public function delete(int $id): bool
     {
         try {
@@ -104,11 +143,18 @@ class Event extends Database
         }
     }
 
-
+    /**
+     * Paginates events from the database.
+     * 
+     * @param int $perPage The number of events to return per page.
+     * @param int $page The current page number.
+     * @param int|string $status Optional status filter for events.
+     * @return array Returns an associative array of paginated events.
+     * @throws \Exception If pagination fails.
+     */
     public function paginate(int $perPage = 10, int $page = 1, int|string $status = null): array
     {
         try {
-
             $statusCondition = $status !== null ? "WHERE e.status = :status" : "";
             $offset = ($page - 1) * $perPage;
 
@@ -144,6 +190,13 @@ class Event extends Database
         }
     }
 
+    /**
+     * Counts the total number of events in the database, optionally filtered by status.
+     * 
+     * @param int|string $status Optional status filter for events.
+     * @return int Returns the total number of events.
+     * @throws \Exception If counting events fails.
+     */
     public function count(int|string $status = null): int
     {
         try {

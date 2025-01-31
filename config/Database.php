@@ -20,6 +20,13 @@ class Database
         $this->pass = env('DB_PASS');
     }
 
+    /**
+     * Establishes a connection to the database using PDO.
+     * 
+     * @return PDO Returns a PDO instance for database interaction.
+     * @throws \Exception If the connection to the database fails.
+     */
+
     public function connect(): PDO
     {
         try {
