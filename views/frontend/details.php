@@ -17,7 +17,7 @@ ob_start();
 
 <!-- buy ticket container -->
 <div class="container">
-    <div class="my-6">
+    <div class="my-6 max-w-[540px] mx-auto">
         <form class="w-full p-6" id="formSubmit">
             <h2 class="mb-6 text-center text-2xl font-bold">Registration Form</h2>
 
