@@ -307,7 +307,7 @@ mysql -u root -p -e "CREATE DATABASE your_database;"
 mysql -u root -p your_database < database.sql
 ```
 
-### 6. Run PHP's Built-in Server (Optional)
+### 6. Run PHP's Built-in Server
 
 ```sh
 php -S localhost:8000 -t public
