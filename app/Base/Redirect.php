@@ -4,14 +4,27 @@ namespace App\Base;
 
 class Redirect
 {
-    public static function to($path)
+    /**
+     * Redirect the user to a specified path.
+     *
+     * @param string $path The URL or relative path to redirect to
+     * @return void
+     */
+    public static function to($path): void
     {
-        header("Location:{$path}");
+        header("Location: {$path}");
+        exit;
     }
 
-    public static function back()
+    /**
+     * Redirect the user back to the previous page.
+     *
+     * @return void
+     */
+    public static function back(): void
     {
-        $previousPage = $_SERVER['HTTP_REFERER'];
+        $previousPage = $_SERVER['HTTP_REFERER'] ?? '/'; 
         header("Location: $previousPage");
+        exit; 
     }
 }

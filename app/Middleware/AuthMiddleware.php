@@ -7,12 +7,18 @@ use App\Base\Redirect;
 
 class AuthMiddleware
 {
-    public static function handler()
+    /**
+     * Handle authentication check before allowing access.
+     *
+     * @return bool Returns true if the user is authenticated, otherwise redirects to the login page.
+     */
+    public static function handler(): bool
     {
         if (Auth::check()) {
             return true;
         } else {
-            Redirect::to('/login');
+            Redirect::to('/login'); 
+            exit;
         }
     }
 }

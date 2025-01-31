@@ -7,12 +7,18 @@ use App\Base\Redirect;
 
 class GuestMiddleware
 {
-    public static function handler()
+    /**
+     * Handle guest user access control.
+     *
+     * @return bool Returns true if the user is a guest, otherwise redirects to the dashboard.
+     */
+    public static function handler(): bool
     {
         if (Auth::check()) {
             Redirect::to('/dashboard');
-        } else {
-            return true;
-        }
+            exit; 
+        } 
+        
+        return true;
     }
 }
