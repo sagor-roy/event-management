@@ -142,6 +142,10 @@ ob_start();
                         errorList.append('<li class="error-item">' + error.responseJSON.message + '</li>');
                         $('#errors').append(errorList);
                     }
+
+                    setInterval(() => {
+                        $('#errors').html('');
+                    }, 5000);
                 },
                 complete: function() {
                     submitButton.prop('disabled', false);
