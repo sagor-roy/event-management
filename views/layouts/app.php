@@ -15,53 +15,9 @@ $hideLayout = in_array($route, $hideLayoutRoutes);
     <title><?php echo $title ?? 'Event Management'; ?></title>
     <link rel="icon" href="favicon.ico" />
     <link href="<?= asset('src/style.css') ?>" rel="stylesheet" />
+    <link href="<?= asset('src/common.css') ?>" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.0.5/swiper-bundle.min.css" />
 
-    <style>
-        .error-list {
-            background-color: #f8d7da;
-            color: #721c24;
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 16px;
-            list-style-type: none;
-        }
-
-        .error-item {
-            font-size: 14px;
-            padding: 4px 0;
-            line-height: 1.6;
-        }
-
-        .pagination {
-            list-style: none;
-            padding: 25px;
-            text-align: right;
-        }
-
-        .pagination li {
-            display: inline-block;
-            margin: 0 5px;
-        }
-
-        .pagination a {
-            text-decoration: none;
-            padding: 8px 12px;
-            background: #007bff;
-            color: white;
-            border-radius: 5px;
-        }
-
-        .pagination li.active a {
-            background: #0056b3;
-            font-weight: bold;
-        }
-
-        select {
-            padding: 5px;
-            font-size: 16px;
-        }
-    </style>
 </head>
 
 <body

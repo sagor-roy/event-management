@@ -21,6 +21,7 @@ $hideLayout = in_array($route, $hideLayoutRoutes);
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/swiper@11.0.5/swiper-bundle.min.css" />
     <link rel="stylesheet" href="<?= asset('src/output.css') ?>" />
+    <link href="<?= asset('src/common.css') ?>" rel="stylesheet" />
     <title><?php echo $title ?? 'Event Management'; ?></title>
 </head>
 

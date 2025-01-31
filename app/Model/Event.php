@@ -103,30 +103,40 @@ class Event extends Database
             throw new \Exception("Event deletion failed: " . $e->getMessage());
         }
     }
-    
 
-    public function paginate(int $perPage = 10, int $page = 1): array
+
+    public function paginate(int $perPage = 10, int $page = 1, int|string $status = null): array
     {
         try {
+
+            $statusCondition = $status !== null ? "WHERE e.status = :status" : "";
             $offset = ($page - 1) * $perPage;
+
             $query = "SELECT 
-                        e.id, e.name, e.slug, e.description, e.date, e.location, 
-                        e.max_capacity, e.status, e.created_by, u.name AS created_by_name, 
-                        e.created_at, e.updated_at,
-                        (e.max_capacity - COALESCE(a.attendee_count, 0)) AS remaining_tickets
-                      FROM $this->table_name e
-                      LEFT JOIN (
-                          SELECT event_id, COUNT(*) AS attendee_count 
-                          FROM attendees 
-                          GROUP BY event_id
-                      ) a ON e.id = a.event_id
-                      LEFT JOIN users u ON e.created_by = u.id
-                      ORDER BY e.id DESC
-                      LIMIT :perPage OFFSET :offset";
+                    e.id, e.name, e.slug, e.description, e.date, e.location, 
+                    e.max_capacity, e.status, e.created_by, u.name AS created_by_name, 
+                    e.created_at, e.updated_at,
+                    (e.max_capacity - COALESCE(a.attendee_count, 0)) AS remaining_tickets
+                  FROM {$this->table_name} e
+                  LEFT JOIN (
+                      SELECT event_id, COUNT(*) AS attendee_count 
+                      FROM attendees 
+                      GROUP BY event_id
+                  ) a ON e.id = a.event_id
+                  LEFT JOIN users u ON e.created_by = u.id
+                  $statusCondition
+                  ORDER BY e.id DESC
+                  LIMIT :perPage OFFSET :offset";
 
             $stmt = $this->connect()->prepare($query);
             $stmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
             $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+
+            if ($status !== null) {
+                $paramType = is_int($status) ? PDO::PARAM_INT : PDO::PARAM_STR;
+                $stmt->bindParam(':status', $status, $paramType);
+            }
+
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -134,11 +144,19 @@ class Event extends Database
         }
     }
 
-    public function count(): int
+    public function count(int|string $status = null): int
     {
         try {
-            $query = "SELECT COUNT(*) as total FROM $this->table_name";
+            $statusCondition = $status !== null ? " WHERE status = :status" : "";
+            $query = "SELECT COUNT(*) as total FROM {$this->table_name} $statusCondition";
+
             $stmt = $this->connect()->prepare($query);
+
+            if ($status !== null) {
+                $paramType = is_int($status) ? PDO::PARAM_INT : PDO::PARAM_STR;
+                $stmt->bindParam(':status', $status, $paramType);
+            }
+
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result['total'] ?? 0;
