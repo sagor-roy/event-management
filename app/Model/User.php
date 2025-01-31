@@ -50,7 +50,8 @@ class User extends Database
             $stmt = $this->connect()->prepare($query);
             $stmt->bindParam(":value", $value, is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR);
             $stmt->execute();
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result ? $result : false;
         } catch (PDOException $e) {
             throw new \Exception("Data fetching failed: " . $e->getMessage());
         }

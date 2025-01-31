@@ -50,9 +50,44 @@ class Event extends Database
             $stmt = $this->connect()->prepare($query);
             $stmt->bindParam(":value", $value, is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR);
             $stmt->execute();
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result ? $result : false;
         } catch (PDOException $e) {
             throw new \Exception("Data fetching failed: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Retrieves event details and calculates remaining tickets for a given event ID.
+     *
+     * @param string|int $event_id The ID of the event.
+     * @return array|false Associative array with event details and `remaining_tickets`, or `false` if not found.
+     * @throws \Exception If a database error occurs.
+     */
+    public function checkCapacity(string|int $event_id): array|false
+    {
+        try {
+            $query = "SELECT 
+            e.id, e.name, e.slug, e.description, e.date, e.location, 
+            e.max_capacity, e.status, e.created_by, u.name AS created_by_name, 
+            e.created_at, e.updated_at,
+            (e.max_capacity - COALESCE(a.attendee_count, 0)) AS remaining_tickets
+        FROM {$this->table_name} e
+        LEFT JOIN (
+            SELECT event_id, COUNT(*) AS attendee_count 
+            FROM attendees 
+            GROUP BY event_id
+        ) a ON e.id = a.event_id
+        LEFT JOIN users u ON e.created_by = u.id
+        WHERE e.id = :event_id";
+
+            $stmt = $this->connect()->prepare($query);
+            $stmt->bindParam(':event_id', $event_id, is_int($event_id) ? PDO::PARAM_INT : PDO::PARAM_STR);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result ? $result : false;
+        } catch (PDOException $e) {
+            throw new \Exception("Failed to check event capacity: " . $e->getMessage());
         }
     }
 

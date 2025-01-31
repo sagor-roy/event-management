@@ -20,7 +20,7 @@ class Attendee extends Database
     public function getAll(int|string $event_id): array|false
     {
         try {
-            $query = "SELECT id, name, email, phone, registered_at FROM $this->table_name WHERE event_id = :event_id";
+            $query = "SELECT id, event_id, name, email, phone, registered_at FROM $this->table_name WHERE event_id = :event_id";
             $stmt = $this->connect()->prepare($query);
             $stmt->bindParam(':event_id', $event_id, PDO::PARAM_INT);
             $stmt->execute();
@@ -52,9 +52,34 @@ class Attendee extends Database
             $stmt = $this->connect()->prepare($query);
             $stmt->bindParam(":value", $value, is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR);
             $stmt->execute();
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result ? $result : false;
         } catch (PDOException $e) {
             throw new \Exception("Data fetching failed: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Creates a new registration record in the database.
+     * 
+     * @param array $data User data containing name, email, phone, event_id and password
+     * @return bool True on successful creation
+     * @throws \Exception If creation fails
+     */
+    public function create(array $data): bool
+    {
+        try {
+            $query = "INSERT INTO $this->table_name (event_id, name, email, phone) VALUES (:event_id, :name, :email, :phone)";
+            $stmt = $this->connect()->prepare($query);
+
+            $stmt->bindParam(':event_id', $data['event_id']);
+            $stmt->bindParam(':name', $data['name']);
+            $stmt->bindParam(':email', $data['email']);
+            $stmt->bindParam(':phone', $data['phone']);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            throw new \Exception("registration creation failed: " . $e->getMessage());
         }
     }
 

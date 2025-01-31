@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Base\Auth;
-use App\Base\Redirect;
+use App\Base\Validator;
+use App\Model\Attendee;
 use App\Model\Event;
-use App\Model\User;
+use DateTime;
 
 class HomeController extends Controller
 {
@@ -57,4 +57,85 @@ class HomeController extends Controller
 
         return view('frontend/details', $data);
     }
+
+    public function store(string|int $event_id)
+    {
+        $data = [
+            'name' => trim($_POST['name'] ?? ''),
+            'email' => trim($_POST['email'] ?? ''),
+            'phone' => trim($_POST['phone'] ?? ''),
+        ];
+
+        $validator = $this->validateInput($data);
+
+        if ($validator->fails()) {
+            http_response_code(400);
+            return json_encode([
+                'status' => 'error',
+                'message' => "Validation Failed",
+                'data' => $validator->errors()
+            ]);
+        }
+
+        // Check event capacity
+        $eventModel = new Event;
+        $event = $eventModel->checkCapacity($event_id);
+        if (!$this->isEventValid($event)) {
+            http_response_code(400);
+            return json_encode([
+                'status' => 'error',
+                'message' => "Event not found or registration closed or sit stockout",
+                'data' => []
+            ]);
+        }
+
+        // Check for duplicate registration
+        $attendeModel = new Attendee;
+        $checkExist = $attendeModel->getAll($event_id);
+
+        foreach ($checkExist as $item) {
+            if ($item['phone'] === $data['phone']) {
+                return json_encode([
+                    'status' => 'error',
+                    'message' => "This phone already registered this event!!",
+                    'data' => []
+                ]);
+                break;
+            }
+        }
+
+        // Create attendee record
+        $data['event_id'] = $event_id;
+        if ($attendeModel->create($data)) {
+            http_response_code(200);
+            return json_encode([
+                'status' => 'success',
+                'message' => "Registration Successful!",
+                'data' => []
+            ]);
+        } else {
+            http_response_code(500);
+            return json_encode([
+                'status' => 'error',
+                'message' => "Registration Failed!",
+                'data' => []
+            ]);
+        }
+    }
+
+    private function validateInput(array $data): Validator
+    {
+        $validator = new Validator($data, [
+            'name' => 'required|min:3',
+            'email' => 'required|email',
+            'phone' => 'required|max:11'
+        ]);
+        return $validator;
+    }
+
+    private function isEventValid($event): bool
+    {
+        return $event && $event['remaining_tickets'] > 0 && new DateTime() <= new DateTime($event['date']);
+    }
+
 }

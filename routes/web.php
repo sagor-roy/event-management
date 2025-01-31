@@ -9,6 +9,7 @@ use App\Controller\HomeController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/details/{slug}', [HomeController::class, 'details']);
+Route::post('/attendee/register/{event_id}', [HomeController::class, 'store']);
 
 
 Route::get('/login', [AuthController::class, 'index']);
