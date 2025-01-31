@@ -91,7 +91,7 @@ DB_NAME = 'events_management'
 DB_USER = root
 DB_PASS = 'plzletme!n' #change the password if needed
 ```
-**Note:** Modify these values as needed but don't change DB_HOST name `db`.
+**Note:** Modify these values as needed but don't change `DB_HOST` name `db`.
 
 ### 3. Run the Project with Docker Compose
 ```sh
