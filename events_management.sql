@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 30, 2025 at 10:15 AM
--- Server version: 8.0.40-0ubuntu0.24.04.1
+-- Generation Time: Jan 31, 2025 at 12:50 PM
+-- Server version: 8.0.41-0ubuntu0.24.04.1
 -- PHP Version: 8.3.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -38,6 +38,16 @@ CREATE TABLE `attendees` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `attendees`
+--
+
+INSERT INTO `attendees` (`id`, `event_id`, `name`, `email`, `phone`, `registered_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 'sagor', 'sagossdfer@gmail.com', '01785400454', '2025-01-31 11:42:43', '2025-01-31 11:42:43', '2025-01-31 11:42:43'),
+(2, 2, 'sagor', 'sagossdfer@gmail.com', '01785400454', '2025-01-31 11:42:58', '2025-01-31 11:42:58', '2025-01-31 11:42:58'),
+(3, 2, 'sagor', 'sagossdfer@gmail.com', '01785400450', '2025-01-31 11:49:05', '2025-01-31 11:49:05', '2025-01-31 11:49:05'),
+(4, 2, 'saf', 'sagossdfe@gmail.com', '01785400459', '2025-01-31 12:10:09', '2025-01-31 12:10:09', '2025-01-31 12:10:09');
+
 -- --------------------------------------------------------
 
 --
@@ -63,12 +73,16 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `name`, `slug`, `description`, `date`, `location`, `max_capacity`, `status`, `created_by`, `created_at`, `updated_at`) VALUES
-(12, 'Jemima Holland', 'jemima-holland', 'Dolore eius numquam', '2025-01-07 00:00:00', 'Est voluptate asperi', 5, '1', 20, '2025-01-30 08:50:10', '2025-01-30 08:50:10'),
-(13, 'Ruby Lancaster', 'ruby-lancaster', 'Asperiores aut dolor', '2025-01-14 00:00:00', 'Deserunt velit sed', 14, '1', 20, '2025-01-30 08:50:20', '2025-01-30 08:50:20'),
-(14, 'Ferdinand Brady', 'ferdinand-brady', 'In voluptas consequa', '2025-01-03 00:00:00', 'Est dicta quod ex vo', 31, '1', 20, '2025-01-30 08:52:52', '2025-01-30 08:52:52'),
-(15, 'Azalia Grimes', 'azalia-grimes', 'Omnis veniam volupt', '2024-12-31 00:00:00', 'Adipisicing et ea ma', 48, '1', 20, '2025-01-30 08:52:57', '2025-01-30 08:52:57'),
-(16, 'Samantha Collier', 'samantha-collier', 'Id et aut blanditiis', '2024-12-17 00:00:00', 'Ut est vel ut tempor', 2, '1', 20, '2025-01-30 08:53:03', '2025-01-30 08:53:03'),
-(17, 'Whitney Durham', 'whitney-durham', 'Mollitia sed ut recu', '2024-12-25 00:00:00', 'Nostrud et velit iru', 1, '1', 20, '2025-01-30 08:53:08', '2025-01-30 08:53:08');
+(1, 'TechCrunch Disrupt', 'techcrunch-disrupt', 'A leading startup and technology conference featuring emerging tech innovations, startup pitches, and discussions with industry experts.', '2025-01-30 00:00:00', 'San Francisco, USA', 100, '1', 30, '2025-01-31 07:48:49', '2025-01-31 07:48:49'),
+(2, 'Google I/O', 'google-i-o', 'Google’s annual developer conference focusing on AI, Android, and cloud computing, with hands-on workshops and major product announcements.', '2025-02-15 00:00:00', 'Mountain View, California, USA (Shoreline Amphitheatre)', 50, '1', 30, '2025-01-31 07:49:24', '2025-01-31 07:49:24'),
+(3, 'Apple WWDC (Worldwide Developers Conference)', 'apple-wwdc-worldwide-developers-conference', 'Apple\'s annual event for developers, introducing new software updates for iOS, macOS, and other Apple platforms.', '2025-02-15 00:00:00', 'Cupertino, California, USA (Apple Park & Online)', 100, '1', 30, '2025-01-31 07:49:54', '2025-01-31 07:49:54'),
+(4, 'Microsoft Build', 'microsoft-build', 'A developer-focused event where Microsoft unveils advancements in AI, Azure, and Windows technologies.', '2025-02-15 00:00:00', 'Seattle, Washington, USA', 50, '1', 30, '2025-01-31 07:50:23', '2025-01-31 07:50:23'),
+(5, 'AWS re:Invent', 'aws-re-invent', 'Amazon Web Services’ global cloud computing conference featuring workshops, certifications, and deep dives into AWS services.', '2025-02-15 00:00:00', 'Las Vegas, Nevada, USA', 100, '1', 30, '2025-01-31 07:50:49', '2025-01-31 07:50:49'),
+(6, 'CES (Consumer Electronics Show)', 'ces-consumer-electronics-show', 'One of the largest consumer technology expos showcasing innovations in AI, IoT, smart devices, and next-gen electronics.', '2025-02-15 00:00:00', 'Las Vegas, Nevada, USA', 200, '1', 30, '2025-01-31 07:51:16', '2025-01-31 07:51:16'),
+(7, 'DEF CON', 'def-con', 'A renowned cybersecurity and hacking conference where ethical hackers, security experts, and government officials explore cyber threats and security trends.', '2025-02-10 00:00:00', 'Las Vegas, Nevada, USA', 150, '1', 30, '2025-01-31 07:51:44', '2025-01-31 07:51:44'),
+(8, 'Web Summit', 'web-summit', 'One of the biggest global tech conferences, covering AI, blockchain, startups, and digital transformation with top industry leaders.', '2025-02-20 00:00:00', 'Lisbon, Portugal', 50, '1', 30, '2025-01-31 07:52:17', '2025-01-31 07:52:17'),
+(9, 'GITEX Global', 'gitex-global', 'A major technology exhibition showcasing advancements in AI, cloud computing, cybersecurity, and emerging tech solutions.', '2025-02-25 00:00:00', 'Dubai, UAE', 200, '1', 30, '2025-01-31 07:52:42', '2025-01-31 07:52:42'),
+(10, 'DjangoCon', 'djangocon', 'A conference dedicated to Django developers, featuring workshops, talks, and networking opportunities for web developers and open-source contributors.', '2025-02-01 23:00:00', 'Varies (Held in different cities worldwide)', 100, '1', 30, '2025-01-31 07:53:23', '2025-01-31 07:53:23');
 
 -- --------------------------------------------------------
 
@@ -90,9 +104,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `updated_at`) VALUES
-(18, 'Blaze Rogers', 'redadarume@mailinator.com', '$2y$10$JXgB8IjLeSgr0i10C8wM/.NQ5Img/mG1wubKT/xamoEpHI.3anIqm', '2025-01-30 04:51:01', '2025-01-30 04:51:01'),
-(19, 'Dexter Duncan', 'rakecaj@mailinator.com', '$2y$10$CwSZ5m8Vs7RAABYMYAVVIeOE4O.sEhjqwmVvVDrzTtrYozXO8eJTa', '2025-01-30 04:51:21', '2025-01-30 04:51:21'),
-(20, 'Channing Holt', 'niboky@mailinator.com', '$2y$10$6nJWoPEcioDaVY3GwKiCAeX9r0F065cGVAZqn3gZqU6RxMppVmZdK', '2025-01-30 07:57:17', '2025-01-30 07:57:17');
+(30, 'Admin', 'admin@gmail.com', '$2y$10$tXY9Sqj42GFgjoPBxEA3YuDVcKLG37pHqId0i/60n6p9VSYnqSY.e', '2025-01-31 06:58:56', '2025-01-31 06:58:56'),
+(31, 'Kamal Meadows', 'bydige@mailinator.com', '$2y$10$nTRQkPga5Gax9vjI.bREMeJeMAj3ymS23aiJh8X6.lcQcxzWvDTyK', '2025-01-31 09:23:33', '2025-01-31 09:23:33');
 
 --
 -- Indexes for dumped tables
@@ -103,7 +116,6 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `updated_a
 --
 ALTER TABLE `attendees`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `phone` (`phone`),
   ADD KEY `event_id_idx` (`event_id`);
 
 --
@@ -128,19 +140,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `attendees`
 --
 ALTER TABLE `attendees`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- Constraints for dumped tables
