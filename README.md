@@ -53,7 +53,7 @@ Ensure you have the following installed:
 ---
 
 <details>
-  <summary>Database Import</summary>
+  <summary>Database</summary>
   
   #### Check databse in project root directory
   
