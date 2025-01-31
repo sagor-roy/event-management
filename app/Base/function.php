@@ -1,16 +1,36 @@
 <?php
 
+/**
+ * Load a view file and pass data to it.
+ *
+ * @param string $view The name of the view file (without extension)
+ * @param array $data (Optional) An associative array of data to extract and use in the view
+ * @return void
+ */
 function view(string $view, array $data = []): void
 {
     extract($data);
     require_once(VIEWS_PATH . $view . '.php');
 }
 
+/**
+ * Retrieve an environment variable.
+ *
+ * @param string $key The key of the environment variable
+ * @return mixed The value of the environment variable
+ */
 function env($key): mixed
 {
     return $_ENV[$key];
 }
 
+/**
+ * Generate the full URL for an asset file.
+ *
+ * @param string $path The asset file path
+ * @param bool|null $secure Whether to use HTTPS (default is auto-detect)
+ * @return string The full asset URL
+ */
 function asset($path, $secure = null)
 {
     if ($secure === null) {
@@ -32,6 +52,12 @@ function asset($path, $secure = null)
     );
 }
 
+/**
+ * Get the base URL of the application.
+ *
+ * @param bool $protocol Whether to include the protocol (http/https)
+ * @return string The base URL of the application
+ */
 function get_base_url($protocol = true): string
 {
     $isSecure = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
@@ -45,13 +71,26 @@ function get_base_url($protocol = true): string
     return ($protocol ? $protocol_text : '') . $host . $subfolder;
 }
 
-
+/**
+ * Generate a full URL based on the given path.
+ *
+ * @param string $path The relative path
+ * @param bool $protocol Whether to include the protocol (http/https)
+ * @return string The full URL
+ */
 function url($path, $protocol = true): string
 {
     return rtrim(get_base_url($protocol), '/') . '/' . ltrim($path, '/');
 }
 
-
+/**
+ * Generate pagination links for navigation.
+ *
+ * @param int $currentPage The current page number
+ * @param int $totalPages The total number of pages
+ * @param int $perPage The number of items per page
+ * @return string HTML markup for pagination links
+ */
 function renderPaginationLinks(int $currentPage, int $totalPages, int $perPage): string
 {
     if ($totalPages <= 1) return '';
@@ -59,15 +98,18 @@ function renderPaginationLinks(int $currentPage, int $totalPages, int $perPage):
     $html = '<ul class="pagination">';
     $limitParam = "&limit=$perPage";
 
+    // Previous page link
     if ($currentPage > 1) {
         $html .= '<li><a href="?page=' . ($currentPage - 1) . $limitParam . '">&laquo; Prev</a></li>';
     }
 
+    // Page number links
     for ($i = 1; $i <= $totalPages; $i++) {
         $activeClass = ($i == $currentPage) ? 'class="active"' : '';
         $html .= '<li ' . $activeClass . '><a href="?page=' . $i . $limitParam . '">' . $i . '</a></li>';
     }
 
+    // Next page link
     if ($currentPage < $totalPages) {
         $html .= '<li><a href="?page=' . ($currentPage + 1) . $limitParam . '">Next &raquo;</a></li>';
     }
@@ -76,7 +118,11 @@ function renderPaginationLinks(int $currentPage, int $totalPages, int $perPage):
     return $html;
 }
 
-
+/**
+ * Render a dropdown for selecting items per page.
+ *
+ * @return string HTML markup for the dropdown
+ */
 function renderPerPageDropdown(): string
 {
     $limit = isset($_GET['limit']) ? $_GET['limit'] : 5;
@@ -94,7 +140,12 @@ function renderPerPageDropdown(): string
     return $html;
 }
 
-
+/**
+ * Generate a URL-friendly slug from a string.
+ *
+ * @param string $string The input string
+ * @return string The generated slug
+ */
 function generateSlug(string $string): string
 {
     $slug = strtolower(trim($string));
@@ -102,6 +153,11 @@ function generateSlug(string $string): string
     return trim($slug, '-');
 }
 
+/**
+ * Show a 404 error page.
+ *
+ * @return void
+ */
 function abort_404()
 {
     require(VIEWS_PATH . '/errors/404.php');
