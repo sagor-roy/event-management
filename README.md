@@ -335,5 +335,4 @@ http://localhost:8000
 - Hosted on Amazon Web Service (AWS).
 - Live project link: [http://65.0.105.94].
 - Login credentials for testing:
-  - **Admin:** admin@example.com / password
-  - **User:** user@example.com / password
+  - **Admin:** `admin@gmail.com` / **Password:** `plzalwme@2025`
