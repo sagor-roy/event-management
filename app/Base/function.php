@@ -102,3 +102,7 @@ function generateSlug(string $string): string
     return trim($slug, '-');
 }
 
+function abort_404()
+{
+    require(VIEWS_PATH . '/errors/404.php');
+}

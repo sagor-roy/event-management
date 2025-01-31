@@ -25,7 +25,7 @@ class AttendeeController extends Controller
 
         if (!$event) {
             http_response_code(404);
-            echo "404 NOT FOUND";
+            abort_404();
             exit;
         }
 
@@ -58,7 +58,7 @@ class AttendeeController extends Controller
 
         if (!$event) {
             http_response_code(404);
-            echo "404 NOT FOUND";
+            abort_404();
             exit;
         }
 

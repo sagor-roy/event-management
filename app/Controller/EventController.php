@@ -53,7 +53,7 @@ class EventController extends Controller
 
         if (!$event) {
             http_response_code(404);
-            echo "404 NOT FOUND";
+            abort_404();
             exit;
         }
 
@@ -105,7 +105,7 @@ class EventController extends Controller
         }
 
         $data['slug'] = generateSlug($data['name']);
-        $data['date'] = date("Y-m-d H:i:s", strtotime($data['date']));
+        $data['date'] = date("Y-m-d H:i:s", strtotime($data['date'] . ' 23:00:00'));
         $data['created_by'] = Auth::user()['id'];
 
         if ($eventModel->update($id, $data)) {
@@ -158,7 +158,7 @@ class EventController extends Controller
         $event = new Event;
 
         $data['slug'] = generateSlug($data['name']);
-        $data['date'] = date("Y-m-d H:i:s", strtotime($data['date']));
+        $data['date'] = date("Y-m-d H:i:s", strtotime($data['date'] . ' 23:00:00'));
         $data['created_by'] = Auth::user()['id'];
 
         if ($event->create($data)) {

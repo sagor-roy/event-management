@@ -41,3 +41,13 @@ select {
     padding: 5px;
     font-size: 16px;
 }
+
+#countdown {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: red;
+    margin-top: 20px;
+}
+.expired {
+    color: red;
+}
