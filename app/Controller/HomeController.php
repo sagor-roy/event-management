@@ -91,17 +91,14 @@ class HomeController extends Controller
 
         // Check for duplicate registration
         $attendeModel = new Attendee;
-        $checkExist = $attendeModel->getAll($event_id);
 
-        foreach ($checkExist as $item) {
-            if ($item['phone'] === $data['phone']) {
-                return json_encode([
-                    'status' => 'error',
-                    'message' => "This phone already registered this event!!",
-                    'data' => []
-                ]);
-                break;
-            }
+        if ($attendeModel->isPhoneRegistered($event_id, $data['phone'])) {
+            http_response_code(400);
+            return json_encode([
+                'status' => 'error',
+                'message' => "This phone is already registered for this event!",
+                'data' => []
+            ]);
         }
 
         // Create attendee record
@@ -137,5 +134,4 @@ class HomeController extends Controller
     {
         return $event && $event['remaining_tickets'] > 0 && new DateTime() <= new DateTime($event['date']);
     }
-
 }

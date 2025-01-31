@@ -30,6 +30,30 @@ class Attendee extends Database
         }
     }
 
+
+    /**
+     * Check if a phone number is already registered for a specific event.
+     *
+     * @param int|string $event_id The event ID to check against.
+     * @param string $phone The phone number to check for existence.
+     * @return bool Returns true if the phone number is already registered, false otherwise.
+     * @throws \Exception If there is an error executing the query.
+     */
+    public function isPhoneRegistered(int|string $event_id, string $phone): bool
+    {
+        try {
+            $query = "SELECT COUNT(*) FROM $this->table_name WHERE event_id = :event_id AND phone = :phone";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->bindParam(':event_id', $event_id, PDO::PARAM_INT);
+            $stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
+            $stmt->execute();
+            return $stmt->fetchColumn() > 0;
+        } catch (PDOException $e) {
+            throw new \Exception("Error checking phone registration: " . $e->getMessage());
+        }
+    }
+
+
     /**
      * Retrieves the first attendee matching a given column condition.
      *
