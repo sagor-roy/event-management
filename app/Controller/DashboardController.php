@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Base\Auth;
 use App\Base\Redirect;
+use App\Model\Event;
 use App\Model\User;
 
 class DashboardController extends Controller
@@ -15,7 +16,23 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return view('pages/dashboard');
+        $eventModel = new Event;
+        $adminModel = new User;
+
+        $total_event = $eventModel->count();
+        $total_active_event = $eventModel->count(1);
+        $total_inactive_event = $eventModel->count('0');
+        $total_admin = $adminModel->count();
+
+        return view(
+            'pages/dashboard',
+            [
+                'total_event' => $total_event,
+                'total_active_event' => $total_active_event,
+                'total_inactive_event' => $total_inactive_event,
+                'total_admin' => $total_admin
+            ]
+        );
     }
 
     public function logout()
