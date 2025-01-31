@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Base\Auth;
+use App\Base\Hash;
 use App\Base\Validator;
 use App\Model\User;
 
@@ -97,7 +98,7 @@ class AuthController extends Controller
             ]);
         }
 
-        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        $data['password'] = Hash::make($data['password']);
         unset($data['password_confirmation']);
 
         $newUser = $userModel->create($data);

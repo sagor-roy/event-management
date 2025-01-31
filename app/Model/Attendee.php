@@ -67,7 +67,7 @@ class Attendee extends Database
      * @return array The paginated list of attendees.
      * @throws \Exception If pagination query fails.
      */
-    public function paginate(int $perPage = 10, int $page = 1, $event_id): array
+    public function paginate(int|string $event_id, int $perPage = 10, int $page = 1): array
     {
         try {
             $offset = ($page - 1) * $perPage;
