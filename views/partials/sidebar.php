@@ -169,7 +169,7 @@
                                     fill="" />
                             </svg>
 
-                            Users List
+                            Admin List
                         </a>
                     </li>
                     <!-- Menu Item Calendar -->

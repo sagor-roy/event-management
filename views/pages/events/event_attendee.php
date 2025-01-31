@@ -86,6 +86,12 @@ ob_start();
                                     <?php } ?>
                                 </tbody>
                             </table>
+
+                            <?php
+                            if (!count($data['attendees']) > 0) {
+                                echo '<h1 style="text-align: center; margin: 50px; font-size: 20px; font-weight: bold">No Attendee</h1>';
+                            }
+                            ?>
                         </div>
                     </div>
 

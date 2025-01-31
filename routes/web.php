@@ -7,6 +7,10 @@ use App\Controller\DashboardController;
 use App\Controller\EventController;
 use App\Controller\HomeController;
 
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/details/{slug}', [HomeController::class, 'details']);
+
+
 Route::get('/login', [AuthController::class, 'index']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'register']);

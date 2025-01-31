@@ -11,6 +11,11 @@ class HomeController extends Controller
 
     public function index()
     {
-        
+        return view('frontend/home');
+    }
+
+    public function details(string $slug)
+    {
+        return view('frontend/details');
     }
 }
