@@ -53,7 +53,7 @@ Ensure you have the following installed:
 ---
 
 <details>
-  <summary>Database Import</summary>
+  <summary>Database</summary>
   
   #### Check databse in project root directory
   
@@ -114,7 +114,6 @@ docker compose exec -it web /bin/bash --login -c "cd /var/www/html/ && composer 
   - Username: `root`
   - Password: `plzletme!n`
   
----
 
 </details>
 
