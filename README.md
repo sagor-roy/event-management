@@ -65,13 +65,13 @@ Ensure you have the following installed:
 <details>
   <summary>Installation on Docker</summary>
   
-## 🚀 Features
+## Features
 - **Apache Web Server** with PHP
 - **MySQL Database** for storing event data
 - **phpMyAdmin** for easy database management
 - **Docker Compose** for effortless setup and deployment
 
-## 🛠️ Setup Instructions
+## Setup Instructions
 
 ### 1️ **Clone the Repository**
 ```sh
