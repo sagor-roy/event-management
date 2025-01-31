@@ -39,7 +39,7 @@ The Event Management System is a web-based application that allows users to crea
 
 # Project Installation Guide
 
-This guide will help you set up and run a project on Windows, Ubuntu, and macOS.
+This guide will help you set up and run a project on Docker, Windows, Ubuntu, and macOS.
 
 ## Prerequisites
 
