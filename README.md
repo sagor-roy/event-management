@@ -333,7 +333,7 @@ http://localhost:8000
 ## Hosting and Deployment
 
 - Hosted on Amazon Web Service (AWS).
-- Live project link: [Insert Live Link].
+- Live project link: [http://65.0.105.94].
 - Login credentials for testing:
   - **Admin:** admin@example.com / password
   - **User:** user@example.com / password
