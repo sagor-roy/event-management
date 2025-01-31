@@ -114,7 +114,6 @@ docker compose exec -it web /bin/bash --login -c "cd /var/www/html/ && composer 
   - Username: `root`
   - Password: `plzletme!n`
   
----
 
 </details>
 
