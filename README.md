@@ -337,3 +337,6 @@ http://localhost:8000
 - Login credentials for testing:
   - **Login:** [http://65.0.105.94/login].
   - **Admin:** `admin@gmail.com` / **Password:** `plzalwme@2025`
+
+## Support
+#### For any issues or support, please contact [sagorroy204@gmail.com].
