@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Event Management System is a web-based application that allows users to create, manage, and view events, register attendees, and generate event reports. The project is developed using pure PHP (without frameworks) and MySQL.This project follows the Laravel MVC design pattern flow (Laravel Clone) and has great potential for further feature development.
+The Event Management System is a web-based application that allows users to create, manage, and view events, register attendees, and generate event reports. The project is developed using pure PHP (without frameworks) and MySQL.This project follows the Laravel MVC design pattern flow (Laravel Clone) and has great potential for further feature development and trying to the best practice
 
 ## Features
 
@@ -34,12 +34,69 @@ The Event Management System is a web-based application that allows users to crea
 - Search Functionality: Search across events and attendees.
 - AJAX-based Registration: Enhances user experience. Every form submit with AJAX
 - JSON API Endpoint: Fetch event details programmatically.
+  <details>
+  <summary>API Enpoint Docs</summary>
+    
+  ### Base URL
+  ```sh
+    https://localhost:8000/api/v1
+  ```
+
+  ### Endpoints
+  #### 1. Get Event by ID
+  Retrieves details of a specific event, including its attendees and remaining ticket count.
+  - URL: /event/{event_id}
+  - Method: GET
+  - URL Parameters:
+  - event_id (required): The ID of the event.
+    
+  #### Example Request
+  ```sh
+  GET /api/v1/event/1
+  ```
+
+  #### Example Request
+  ```sh
+      {
+        "id": 1,
+        "slug": "tech-world",
+        "description": "A conference about technology.",
+        "deadline": "2023-12-15 10:00:00",
+        "location": "New York",
+        "name": "Tech World",
+        "max_capacity": 100,
+        "remaining_tickets": 98,
+        "attended": [
+            {
+                "id": 1,
+                "name": "John",
+                "phone": "1234567890"
+            },
+            {
+                "id": 2,
+                "name": "Jane",
+                "phone": "0987654321"
+            }
+        ]
+    }
+  ```
+
+  #### Example Response (Event Not Found)
+  ```sh
+  {
+      "status": "faild",
+      "message": "Event not found.",
+      "data": []
+  }
+  ```
+
+</details>
 
 ---
 
 # Project Installation Guide
 
-This guide will help you set up and run a project on Windows, Ubuntu, and macOS.
+This guide will help you set up and run a project on Docker, Windows, Ubuntu, and macOS.
 
 ## Prerequisites
 
@@ -65,13 +122,13 @@ Ensure you have the following installed:
 <details>
   <summary>Installation on Docker</summary>
   
-## 🚀 Features
+## Features
 - **Apache Web Server** with PHP
 - **MySQL Database** for storing event data
 - **phpMyAdmin** for easy database management
 - **Docker Compose** for effortless setup and deployment
 
-## 🛠️ Setup Instructions
+## Setup Instructions
 
 ### 1️ **Clone the Repository**
 ```sh
@@ -307,7 +364,7 @@ mysql -u root -p -e "CREATE DATABASE your_database;"
 mysql -u root -p your_database < database.sql
 ```
 
-### 6. Run PHP's Built-in Server (Optional)
+### 6. Run PHP's Built-in Server
 
 ```sh
 php -S localhost:8000 -t public
@@ -335,5 +392,8 @@ http://localhost:8000
 - Hosted on Amazon Web Service (AWS).
 - Live project link: [http://65.0.105.94].
 - Login credentials for testing:
-  - **Admin:** admin@example.com / password
-  - **User:** user@example.com / password
+  - **Login:** [http://65.0.105.94/login].
+  - **Admin:** `admin@gmail.com` / **Password:** `plzalwme@2025`
+
+## Support
+#### For any issues or support, please contact [sagorroy204@gmail.com].
