@@ -36,6 +36,7 @@ The Event Management System is a web-based application that allows users to crea
 - JSON API Endpoint: Fetch event details programmatically.
   <details>
   <summary>API Enpoint Docs</summary>
+    
   ### Base URL
   ```sh
     https://localhost:8000/api/v1
@@ -78,7 +79,7 @@ The Event Management System is a web-based application that allows users to crea
             }
         ]
     }
-```
+  ```
 
   #### Example Response (Event Not Found)
   ```sh
