@@ -470,7 +470,7 @@ http://localhost:8000
 ## Additional Notes
 
 - Use `composer install`
-- If you want to disable Google Captcha, set `CAPTCAH_VISIBLE` = `false`
+- If you want to disable Google Captcha, set `CAPTCHA_VISIBLE` = `false`
 - Modify `config/database.php` as per your environment settings if needed.
 
 ---
