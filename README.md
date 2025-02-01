@@ -90,6 +90,93 @@ The Event Management System is a web-based application that allows users to crea
   }
   ```
 
+  ### 2. Get Paginated List of Events
+
+  Retrieves a paginated list of events with details, including remaining tickets and pagination metadata.
+
+  - URL: `/events`
+  - Method: `GET`
+  - Query Parameters:
+  - `page` (optional): The page number to retrieve (default: `1`).
+  - `limit` (optional): The number of events per page (default: `5`).
+  
+  #### Example Request
+  ```sh
+  GET /api/v1/events?page=1&limit=5
+  ```
+  ### Example Response (Success)
+  ```sh
+    {
+      "status": "success",
+      "data": {
+          "events": [
+              {
+                  "id": 1,
+                  "name": "Tech World",
+                  "slug": "tech-world",
+                  "description": "A conference about technology.",
+                  "date": "2023-12-15 10:00:00",
+                  "location": "New York",
+                  "max_capacity": 100,
+                  "remaining_tickets": 98,
+                  "status": "active",
+                  "created_by": 1,
+                  "created_by_name": "Admin",
+                  "created_at": "2023-10-01 12:00:00",
+                  "updated_at": "2023-10-01 12:00:00"
+              },
+              {
+                  "id": 2,
+                  "name": "Music Festival",
+                  "slug": "music-festival",
+                  "description": "Annual music festival.",
+                  "date": "2023-11-20 18:00:00",
+                  "location": "Los Angeles",
+                  "max_capacity": 500,
+                  "remaining_tickets": 450,
+                  "status": "active",
+                  "created_by": 1,
+                  "created_by_name": "Admin",
+                  "created_at": "2023-10-01 12:00:00",
+                  "updated_at": "2023-10-01 12:00:00"
+              }
+          ],
+          "pagination": {
+              "current_page": 1,
+              "total_pages": 10,
+              "per_page": 5,
+              "total_records": 50
+          }
+      }
+  }
+  ```
+
+  ### Error Responses
+  All endpoints return the following error structure in case of failure:
+
+  ```sh
+    {
+      "status": "faild",
+      "message": "Error message here.",
+      "data": []
+  }
+  ```
+
+  ### Response Codes
+  - `200 OK`: The request was successful.
+  - `404 Not Found`: The requested resource (e.g., event) was not found.
+  - `500 Internal Server Error`: An unexpected error occurred on the server.
+
+  ### Example Usage
+  #### Fetch Event by ID
+  ```sh
+  curl -X GET "https://localhost:8000/api/v1/event/1"
+  ```
+  #### Fetch Paginated Events
+
+  ```sh
+  curl -X GET "https://localhost:8000/api/v1/events?page=1&limit=5"
+  ```
 </details>
 
 ---
