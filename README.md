@@ -39,7 +39,7 @@ The Event Management System is a web-based application that allows users to crea
     
   ### Base URL
   ```sh
-    https://localhost:8000/api/v1
+    http://65.0.105.94/api/v1
   ```
 
   ### Endpoints
@@ -170,12 +170,12 @@ The Event Management System is a web-based application that allows users to crea
   ### Example Usage
   #### Fetch Event by ID
   ```sh
-  curl -X GET "https://localhost:8000/api/v1/event/1"
+  curl -X GET "http://65.0.105.94/api/v1/event/1"
   ```
   #### Fetch Paginated Events
 
   ```sh
-  curl -X GET "https://localhost:8000/api/v1/events?page=1&limit=5"
+  curl -X GET "http://65.0.105.94/api/v1/events?page=1&limit=5"
   ```
 </details>
 
