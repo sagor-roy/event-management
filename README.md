@@ -34,7 +34,7 @@ The Event Management System is a web-based application that allows users to crea
 - Search Functionality: Search across events and attendees.
 - AJAX-based Registration: Enhances user experience. Every form submit with AJAX
 - JSON API Endpoint: Fetch event details programmatically.
-- <details>
+  <details>
   <summary>Database</summary>
   
   #### Check databse in project root directory
