@@ -35,11 +35,60 @@ The Event Management System is a web-based application that allows users to crea
 - AJAX-based Registration: Enhances user experience. Every form submit with AJAX
 - JSON API Endpoint: Fetch event details programmatically.
   <details>
-  <summary>Database</summary>
-  
-  #### Check databse in project root directory
-  
-  <img src="https://raw.githubusercontent.com/sagor-roy/event-management/main/public/assets/src/images/screenshot.jpg" width="100%">
+  <summary>API Enpoint Docs</summary>
+  ### Base URL
+  ```sh
+    https://localhost:8000/api/v1
+  ```
+
+  ### Endpoints
+  #### 1. Get Event by ID
+  Retrieves details of a specific event, including its attendees and remaining ticket count.
+  - URL: /event/{event_id}
+  - Method: GET
+  - URL Parameters:
+  - event_id (required): The ID of the event.
+    
+  #### Example Request
+  ```sh
+  GET /api/v1/event/1
+  ```
+
+  #### Example Request
+  ```sh
+      {
+        "id": 1,
+        "slug": "tech-world",
+        "description": "A conference about technology.",
+        "deadline": "2023-12-15 10:00:00",
+        "location": "New York",
+        "name": "Tech World",
+        "max_capacity": 100,
+        "remaining_tickets": 98,
+        "attended": [
+            {
+                "id": 1,
+                "name": "John",
+                "phone": "1234567890"
+            },
+            {
+                "id": 2,
+                "name": "Jane",
+                "phone": "0987654321"
+            }
+        ]
+    }
+```
+
+  #### Example Response (Event Not Found)
+  ```sh
+  {
+      "status": "faild",
+      "message": "Event not found.",
+      "data": []
+  }
+  ```
+
 </details>
 
 ---
