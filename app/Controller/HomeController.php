@@ -68,6 +68,7 @@ class HomeController extends Controller
             'name' => trim($_POST['name'] ?? ''),
             'email' => trim($_POST['email'] ?? ''),
             'phone' => trim($_POST['phone'] ?? ''),
+            'g-recaptcha-response' => isset($_POST['g-recaptcha-response']) ? trim($_POST['g-recaptcha-response']) : '',
         ];
 
         $validator = $this->validateInput($data);
@@ -79,6 +80,17 @@ class HomeController extends Controller
                 'message' => "Please check your input fields.",
                 'data' => $validator->errors()
             ]);
+        }
+
+        if (env('CAPTCHA_VISIBLE') == 'true') {
+            if (!$this->recaptcha_check($data['g-recaptcha-response'])) {
+                http_response_code(400);
+                return json_encode([
+                    'status' => 'error',
+                    'message' => "Invalid Captcha.",
+                    'data' => $validator->errors()
+                ]);
+            }
         }
 
         // Check event capacity
@@ -137,5 +149,28 @@ class HomeController extends Controller
     private function isEventValid($event): bool
     {
         return $event && $event['remaining_tickets'] > 0 && new DateTime() <= new DateTime($event['date']);
+    }
+
+
+    private function recaptcha_check($response)
+    {
+        $post_data                          = array();
+        $post_data['secret']                = env('CAPTCHA_SECRET');
+        $post_data['response']              = $response;
+
+        foreach ($post_data as $key => $value)   $post_items[] = $key . '=' . $value;
+        $post_string = implode('&', $post_items);
+
+        $ch = curl_init("https://www.google.com/recaptcha/api/siteverify");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, count($post_data));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_string);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+        $content = curl_exec($ch);
+        curl_close($ch);
+
+        $ret_val = json_decode($content);
+
+        return $ret_val->success;
     }
 }

@@ -53,6 +53,13 @@ ob_start();
                     placeholder="Enter your phone number" />
             </div>
 
+            <?php if (env('CAPTCHA_VISIBLE') == 'true'): ?>
+                <div class="mb-4">
+                    <div id="authCaptcha" class="g-recaptcha" data-sitekey="<?= env('CAPTCHA_SITEKEY') ?>"
+                        data-expired-callback="expCallback" data-callback="recaptchaCallback"
+                        data-theme="light"></div>
+                </div>
+            <?php endif ?>
             <button
                 id="submit-button"
                 type="submit"
@@ -63,6 +70,7 @@ ob_start();
     </div>
 </div>
 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
@@ -150,6 +158,9 @@ ob_start();
                 complete: function() {
                     submitButton.prop('disabled', false);
                     submitButton.text("Login");
+                    if ("<?= env('CAPTCHA_VISIBLE') ?>" == 'true') {
+                        grecaptcha.reset()
+                    }
                 }
             });
         });

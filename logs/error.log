@@ -116,3 +116,4 @@ Stack trace:
 #3 /home/sailor/Desktop/www/custom-mvc/public/index.php(30): App\Base\Route::handleRequest()
 #4 {main}
   thrown in /home/sailor/Desktop/www/custom-mvc/app/Model/Event.php on line 316
+[01-Feb-2025 13:55:58 Asia/Dhaka] PHP Warning:  Array to string conversion in /home/sailor/Desktop/www/custom-mvc/app/Base/Route.php on line 76
