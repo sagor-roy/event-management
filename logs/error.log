@@ -1,0 +1,118 @@
+[01-Feb-2025 01:05:12 Asia/Dhaka] PHP Parse error:  syntax error, unexpected token ";", expecting "]" in /home/sailor/Desktop/www/custom-mvc/app/Controller/DashboardController.php on line 33
+[01-Feb-2025 01:05:29 Asia/Dhaka] PHP Parse error:  syntax error, unexpected token ";", expecting "]" in /home/sailor/Desktop/www/custom-mvc/app/Controller/DashboardController.php on line 33
+[01-Feb-2025 11:03:47 Asia/Dhaka] PHP Fatal error:  Uncaught Error: Class "App\Base\Http\Response" not found in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php:39
+Stack trace:
+#0 [internal function]: App\Controller\ApiController->events_reports()
+#1 /home/sailor/Desktop/www/custom-mvc/app/Base/Route.php(76): call_user_func_array()
+#2 /home/sailor/Desktop/www/custom-mvc/public/index.php(30): App\Base\Route::handleRequest()
+#3 {main}
+  thrown in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php on line 39
+[01-Feb-2025 11:04:30 Asia/Dhaka] PHP Fatal error:  Uncaught Error: Class "App\Base\Http\Response" not found in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php:39
+Stack trace:
+#0 [internal function]: App\Controller\ApiController->events_reports()
+#1 /home/sailor/Desktop/www/custom-mvc/app/Base/Route.php(76): call_user_func_array()
+#2 /home/sailor/Desktop/www/custom-mvc/public/index.php(30): App\Base\Route::handleRequest()
+#3 {main}
+  thrown in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php on line 39
+[01-Feb-2025 11:05:01 Asia/Dhaka] PHP Fatal error:  Uncaught Error: Class "App\Base\Http\Response" not found in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php:39
+Stack trace:
+#0 [internal function]: App\Controller\ApiController->events_reports()
+#1 /home/sailor/Desktop/www/custom-mvc/app/Base/Route.php(76): call_user_func_array()
+#2 /home/sailor/Desktop/www/custom-mvc/public/index.php(30): App\Base\Route::handleRequest()
+#3 {main}
+  thrown in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php on line 39
+[01-Feb-2025 11:05:01 Asia/Dhaka] PHP Fatal error:  Uncaught Error: Class "App\Base\Http\Response" not found in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php:39
+Stack trace:
+#0 [internal function]: App\Controller\ApiController->events_reports()
+#1 /home/sailor/Desktop/www/custom-mvc/app/Base/Route.php(76): call_user_func_array()
+#2 /home/sailor/Desktop/www/custom-mvc/public/index.php(30): App\Base\Route::handleRequest()
+#3 {main}
+  thrown in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php on line 39
+[01-Feb-2025 11:05:01 Asia/Dhaka] PHP Fatal error:  Uncaught Error: Class "App\Base\Http\Response" not found in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php:39
+Stack trace:
+#0 [internal function]: App\Controller\ApiController->events_reports()
+#1 /home/sailor/Desktop/www/custom-mvc/app/Base/Route.php(76): call_user_func_array()
+#2 /home/sailor/Desktop/www/custom-mvc/public/index.php(30): App\Base\Route::handleRequest()
+#3 {main}
+  thrown in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php on line 39
+[01-Feb-2025 11:05:55 Asia/Dhaka] PHP Fatal error:  Uncaught Error: Class "App\Base\Http\Response" not found in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php:36
+Stack trace:
+#0 [internal function]: App\Controller\ApiController->events_reports()
+#1 /home/sailor/Desktop/www/custom-mvc/app/Base/Route.php(76): call_user_func_array()
+#2 /home/sailor/Desktop/www/custom-mvc/public/index.php(30): App\Base\Route::handleRequest()
+#3 {main}
+  thrown in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php on line 36
+[01-Feb-2025 11:06:22 Asia/Dhaka] PHP Fatal error:  Uncaught Error: Class "App\Base\Http\Response" not found in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php:36
+Stack trace:
+#0 [internal function]: App\Controller\ApiController->events_reports()
+#1 /home/sailor/Desktop/www/custom-mvc/app/Base/Route.php(76): call_user_func_array()
+#2 /home/sailor/Desktop/www/custom-mvc/public/index.php(30): App\Base\Route::handleRequest()
+#3 {main}
+  thrown in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php on line 36
+[01-Feb-2025 11:06:23 Asia/Dhaka] PHP Fatal error:  Uncaught Error: Class "App\Base\Http\Response" not found in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php:36
+Stack trace:
+#0 [internal function]: App\Controller\ApiController->events_reports()
+#1 /home/sailor/Desktop/www/custom-mvc/app/Base/Route.php(76): call_user_func_array()
+#2 /home/sailor/Desktop/www/custom-mvc/public/index.php(30): App\Base\Route::handleRequest()
+#3 {main}
+  thrown in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php on line 36
+[01-Feb-2025 11:06:23 Asia/Dhaka] PHP Fatal error:  Uncaught Error: Class "App\Base\Http\Response" not found in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php:36
+Stack trace:
+#0 [internal function]: App\Controller\ApiController->events_reports()
+#1 /home/sailor/Desktop/www/custom-mvc/app/Base/Route.php(76): call_user_func_array()
+#2 /home/sailor/Desktop/www/custom-mvc/public/index.php(30): App\Base\Route::handleRequest()
+#3 {main}
+  thrown in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php on line 36
+[01-Feb-2025 11:06:24 Asia/Dhaka] PHP Fatal error:  Uncaught Error: Class "App\Base\Http\Response" not found in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php:36
+Stack trace:
+#0 [internal function]: App\Controller\ApiController->events_reports()
+#1 /home/sailor/Desktop/www/custom-mvc/app/Base/Route.php(76): call_user_func_array()
+#2 /home/sailor/Desktop/www/custom-mvc/public/index.php(30): App\Base\Route::handleRequest()
+#3 {main}
+  thrown in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php on line 36
+[01-Feb-2025 11:06:24 Asia/Dhaka] PHP Fatal error:  Uncaught Error: Class "App\Base\Http\Response" not found in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php:36
+Stack trace:
+#0 [internal function]: App\Controller\ApiController->events_reports()
+#1 /home/sailor/Desktop/www/custom-mvc/app/Base/Route.php(76): call_user_func_array()
+#2 /home/sailor/Desktop/www/custom-mvc/public/index.php(30): App\Base\Route::handleRequest()
+#3 {main}
+  thrown in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php on line 36
+[01-Feb-2025 11:06:24 Asia/Dhaka] PHP Fatal error:  Uncaught Error: Class "App\Base\Http\Response" not found in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php:36
+Stack trace:
+#0 [internal function]: App\Controller\ApiController->events_reports()
+#1 /home/sailor/Desktop/www/custom-mvc/app/Base/Route.php(76): call_user_func_array()
+#2 /home/sailor/Desktop/www/custom-mvc/public/index.php(30): App\Base\Route::handleRequest()
+#3 {main}
+  thrown in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php on line 36
+[01-Feb-2025 11:29:18 Asia/Dhaka] PHP Fatal error:  Uncaught TypeError: App\Model\Event::getEventWithAttendees(): Argument #1 ($event_id) must be of type int, string given, called in /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php on line 14 and defined in /home/sailor/Desktop/www/custom-mvc/app/Model/Event.php:264
+Stack trace:
+#0 /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php(14): App\Model\Event->getEventWithAttendees()
+#1 [internal function]: App\Controller\ApiController->single_event()
+#2 /home/sailor/Desktop/www/custom-mvc/app/Base/Route.php(76): call_user_func_array()
+#3 /home/sailor/Desktop/www/custom-mvc/public/index.php(30): App\Base\Route::handleRequest()
+#4 {main}
+  thrown in /home/sailor/Desktop/www/custom-mvc/app/Model/Event.php on line 264
+[01-Feb-2025 11:35:00 Asia/Dhaka] PHP Fatal error:  Uncaught Exception: Data fetching failed: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in /home/sailor/Desktop/www/custom-mvc/app/Model/Event.php:302
+Stack trace:
+#0 /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php(14): App\Model\Event->getEventWithAttendees()
+#1 [internal function]: App\Controller\ApiController->single_event()
+#2 /home/sailor/Desktop/www/custom-mvc/app/Base/Route.php(76): call_user_func_array()
+#3 /home/sailor/Desktop/www/custom-mvc/public/index.php(30): App\Base\Route::handleRequest()
+#4 {main}
+  thrown in /home/sailor/Desktop/www/custom-mvc/app/Model/Event.php on line 302
+[01-Feb-2025 11:40:14 Asia/Dhaka] PHP Fatal error:  Uncaught Exception: Data fetching failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'u.name' in 'field list' in /home/sailor/Desktop/www/custom-mvc/app/Model/Event.php:307
+Stack trace:
+#0 /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php(14): App\Model\Event->getEventWithAttendees()
+#1 [internal function]: App\Controller\ApiController->single_event()
+#2 /home/sailor/Desktop/www/custom-mvc/app/Base/Route.php(76): call_user_func_array()
+#3 /home/sailor/Desktop/www/custom-mvc/public/index.php(30): App\Base\Route::handleRequest()
+#4 {main}
+  thrown in /home/sailor/Desktop/www/custom-mvc/app/Model/Event.php on line 307
+[01-Feb-2025 11:42:22 Asia/Dhaka] PHP Fatal error:  Uncaught Exception: Data fetching failed: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'a.event_id' in on clause is ambiguous in /home/sailor/Desktop/www/custom-mvc/app/Model/Event.php:316
+Stack trace:
+#0 /home/sailor/Desktop/www/custom-mvc/app/Controller/ApiController.php(14): App\Model\Event->getEventWithAttendees()
+#1 [internal function]: App\Controller\ApiController->single_event()
+#2 /home/sailor/Desktop/www/custom-mvc/app/Base/Route.php(76): call_user_func_array()
+#3 /home/sailor/Desktop/www/custom-mvc/public/index.php(30): App\Base\Route::handleRequest()
+#4 {main}
+  thrown in /home/sailor/Desktop/www/custom-mvc/app/Model/Event.php on line 316

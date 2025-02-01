@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $adminModel = new User;
 
         $total_event = $eventModel->count();
-        $total_active_event = $eventModel->count(1);
+        $total_active_event = $eventModel->count('1');
         $total_inactive_event = $eventModel->count('0');
         $total_admin = $adminModel->count();
 

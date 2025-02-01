@@ -252,4 +252,67 @@ class Event extends Database
             throw new \Exception("Counting users failed: " . $e->getMessage());
         }
     }
+
+
+    /**
+     * Fetches an event with its attendees and calculates remaining tickets.
+     *
+     * @param int $event_id The ID of the event.
+     * @return array|false Returns an array with event details, remaining tickets, and attendees, or false if not found.
+     * @throws \Exception If database query fails.
+     */
+    public function getEventWithAttendees(int $event_id): array|false
+    {
+        try {
+            $query = "SELECT 
+                        e.id, e.name, e.slug, e.description, e.date as deadline, e.location, 
+                        e.max_capacity, e.status, e.created_by, u.name AS created_by_name,  
+                        a.id AS attendee_id, 
+                        a.name AS attendee_name,
+                        a.phone AS attendee_phone,
+                        (e.max_capacity - COALESCE(attendee_counts.attendee_count, 0)) AS remaining_tickets
+                    FROM {$this->table_name} e
+                    LEFT JOIN attendees a ON e.id = a.event_id
+                    LEFT JOIN users u ON e.created_by = u.id
+                    LEFT JOIN (
+                        SELECT event_id, COUNT(*) AS attendee_count 
+                        FROM attendees 
+                        GROUP BY event_id
+                    ) attendee_counts ON e.id = attendee_counts.event_id
+                    WHERE e.id = :event_id";
+
+            $stmt = $this->connect()->prepare($query);
+            $stmt->bindParam(':event_id', $event_id, PDO::PARAM_INT);
+            $stmt->execute();
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if (empty($results)) {
+                return false;
+            }
+
+            $event = [
+                'id' => $results[0]['id'],
+                'slug' => $results[0]['slug'],
+                'description' => $results[0]['description'],
+                'deadline' => $results[0]['deadline'],
+                'location' => $results[0]['location'],
+                'name' => $results[0]['name'],
+                'max_capacity' => $results[0]['max_capacity'],
+                'remaining_tickets' => $results[0]['remaining_tickets'],
+                'attended' => array_map(function ($row) {
+                    return [
+                        'id' => $row['attendee_id'],
+                        'name' => $row['attendee_name'],
+                        'phone' => $row['attendee_phone'],
+                    ];
+                }, array_filter($results, function ($row) {
+                    return !is_null($row['attendee_id']);
+                }))
+            ];
+
+            return $event;
+        } catch (PDOException $e) {
+            throw new \Exception("Data fetching failed: " . $e->getMessage());
+        }
+    }
 }

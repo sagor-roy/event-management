@@ -1,6 +1,7 @@
 <?php
 
 use App\Base\Route;
+use App\Controller\ApiController;
 use App\Controller\AttendeeController;
 use App\Controller\AuthController;
 use App\Controller\DashboardController;
@@ -30,3 +31,7 @@ Route::get('/event/delete/{id}', [EventController::class, 'delete']);
 
 Route::get('/event/attendee/{id}', [AttendeeController::class, 'show']);
 Route::get('/export/attendee/{id}', [AttendeeController::class, 'export']);
+
+// API
+Route::get('/api/v1/event/{event_id}', [ApiController::class, 'single_event']);
+Route::get('/api/v1/events', [ApiController::class, 'events']);
