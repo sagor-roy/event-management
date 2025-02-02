@@ -234,6 +234,10 @@ DB_HOST = db #container name
 DB_NAME = 'events_management'
 DB_USER = root
 DB_PASS = 'plzletme!n' #change the password if needed
+
+CAPTCHA_VISIBLE = 'true'
+CAPTCHA_SITEKEY = 6Le6dAonAAAAAPZ2xjSKLAJyA4ST8nWLYE-YDZ3O
+CAPTCHA_SECRET = 6Le6dAonAAAAALJtKx1jiPaE0SdHmQXLk_PIEtoJ
 ```
 **Note:** Modify these values as needed but don't change `DB_HOST` name `db`.
 
@@ -290,6 +294,10 @@ DB_HOST = localhost
 DB_NAME = 'events_management'
 DB_USER = root
 DB_PASS = 'your_password'
+
+CAPTCHA_VISIBLE = 'true'
+CAPTCHA_SITEKEY = 6Le6dAonAAAAAPZ2xjSKLAJyA4ST8nWLYE-YDZ3O
+CAPTCHA_SECRET = 6Le6dAonAAAAALJtKx1jiPaE0SdHmQXLk_PIEtoJ
 ```
 
 For Production (Hide Server Display Error)
@@ -353,6 +361,10 @@ DB_HOST = localhost
 DB_NAME = 'events_management'
 DB_USER = root
 DB_PASS = 'your_password'
+
+CAPTCHA_VISIBLE = 'true'
+CAPTCHA_SITEKEY = 6Le6dAonAAAAAPZ2xjSKLAJyA4ST8nWLYE-YDZ3O
+CAPTCHA_SECRET = 6Le6dAonAAAAALJtKx1jiPaE0SdHmQXLk_PIEtoJ
 ```
 
 For Production (Hide Server Display Error)
@@ -435,6 +447,10 @@ DB_HOST = localhost
 DB_NAME = 'events_management'
 DB_USER = root
 DB_PASS = 'your_password'
+
+CAPTCHA_VISIBLE = 'true'
+CAPTCHA_SITEKEY = 6Le6dAonAAAAAPZ2xjSKLAJyA4ST8nWLYE-YDZ3O
+CAPTCHA_SECRET = 6Le6dAonAAAAALJtKx1jiPaE0SdHmQXLk_PIEtoJ
 ```
 
 For Production (Hide Server Display Error)
