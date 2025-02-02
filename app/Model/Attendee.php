@@ -138,21 +138,30 @@ class Attendee extends Database
     }
 
     /**
-     * Counts the total number of attendees.
-     *
-     * @return int The total count of attendees.
-     * @throws \Exception If counting fails.
+     * Counts the total number of events in the database, optionally filtered by status.
+     * 
+     * @param int|string $status Optional status filter for events.
+     * @return int Returns the total number of events.
+     * @throws \Exception If counting events fails.
      */
-    public function count(): int
+    public function count(int|string $event_id = null): int
     {
         try {
-            $query = "SELECT COUNT(*) as total FROM $this->table_name";
+            $statusCondition = $event_id !== null ? " WHERE event_id = :event_id" : "";
+            $query = "SELECT COUNT(*) as total FROM {$this->table_name} $statusCondition";
+
             $stmt = $this->connect()->prepare($query);
+
+            if ($event_id !== null) {
+                $paramType = is_int($event_id) ? PDO::PARAM_INT : PDO::PARAM_STR;
+                $stmt->bindParam(':event_id', $event_id, $paramType);
+            }
+
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result['total'] ?? 0;
         } catch (PDOException $e) {
-            throw new \Exception("Counting attendees failed: " . $e->getMessage());
+            throw new \Exception("Counting users failed: " . $e->getMessage());
         }
     }
 }

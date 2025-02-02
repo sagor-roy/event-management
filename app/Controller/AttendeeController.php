@@ -31,7 +31,7 @@ class AttendeeController extends Controller
 
         $attendeesModel = new Attendee;
         $attendees = $attendeesModel->paginate($id, $perPage, $page);
-        $totalAtt = $attendeesModel->count();
+        $totalAtt = $attendeesModel->count($id);
         $totalPages = ceil($totalAtt / $perPage);
 
         $data = [

@@ -117,3 +117,11 @@ Stack trace:
 #4 {main}
   thrown in /home/sailor/Desktop/www/custom-mvc/app/Model/Event.php on line 316
 [01-Feb-2025 13:55:58 Asia/Dhaka] PHP Warning:  Array to string conversion in /home/sailor/Desktop/www/custom-mvc/app/Base/Route.php on line 76
+[02-Feb-2025 12:18:23 Asia/Dhaka] PHP Fatal error:  Uncaught Exception: Counting users failed: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined in /home/sailor/Desktop/www/custom-mvc/app/Model/Attendee.php:164
+Stack trace:
+#0 /home/sailor/Desktop/www/custom-mvc/app/Controller/AttendeeController.php(34): App\Model\Attendee->count()
+#1 [internal function]: App\Controller\AttendeeController->show()
+#2 /home/sailor/Desktop/www/custom-mvc/app/Base/Route.php(76): call_user_func_array()
+#3 /home/sailor/Desktop/www/custom-mvc/public/index.php(30): App\Base\Route::handleRequest()
+#4 {main}
+  thrown in /home/sailor/Desktop/www/custom-mvc/app/Model/Attendee.php on line 164
