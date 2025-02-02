@@ -141,7 +141,7 @@ class HomeController extends Controller
         $validator = new Validator($data, [
             'name' => 'required|min:3',
             'email' => 'required|email',
-            'phone' => 'required|max:11|min:11'
+            'phone' => 'required'
         ]);
         return $validator;
     }
