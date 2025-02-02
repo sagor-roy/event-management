@@ -157,7 +157,7 @@ ob_start();
                 },
                 complete: function() {
                     submitButton.prop('disabled', false);
-                    submitButton.text("Login");
+                    submitButton.text("Submit");
                     if ("<?= env('CAPTCHA_VISIBLE') ?>" == 'true') {
                         grecaptcha.reset()
                     }
